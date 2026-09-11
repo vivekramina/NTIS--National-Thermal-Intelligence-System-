@@ -51,6 +51,14 @@ export interface Detection {
   detectedAt: string; // ISO 8601
   nearbyFacility: NearbyFacility | null;
   source: 'FIRMS' | 'SENTINEL' | 'MODIS' | 'VIIRS';
+  classification?: string;
+  classificationConfidence?: number;
+  classificationReasons?: string[];
+  riskScore?: number;
+  landCoverClass?: string;
+  satelliteEvidenceAvailable?: boolean;
+  satelliteSceneId?: string;
+  isDemo?: boolean;
 }
 
 // ============================================================
@@ -92,6 +100,8 @@ export interface Alert {
   timestamp: string; // ISO 8601
   detectionId: string;
   isRead: boolean;
+  message?: string;
+  status?: string;
 }
 
 // ============================================================
@@ -113,8 +123,16 @@ export interface DashboardMetrics {
 // ============================================================
 
 export interface DetectionActivityPoint {
-  time: string; // e.g. "00:00"
+  time: string; // e.g. "00:00", "Mon 08", "Aug 15"
   detections: number;
+  industrial?: number;
+  biomass?: number;
+  avgFrp?: number;
+  peakFrp?: number;
+  criticalCount?: number;
+  confidence?: number;
+  label?: string;
+  fullDate?: string;
 }
 
 // ============================================================

@@ -2,9 +2,16 @@ import { useNavigate } from 'react-router-dom'
 import { ArrowRight, AlertTriangle, Flame, Clock, Building2, Zap, Shield, MapPin } from 'lucide-react'
 import type { Detection } from '../../types'
 import { getRiskBadgeClasses, getRiskColor, formatRelativeTime, formatDistance, cn } from '../../lib/utils'
+import {
+  HOTSPOT_CLASSIFICATIONS,
+  resolveHotspotClassification,
+} from '../../data/hotspotClassification'
 
 export default function DetectionPopup({ detection }: { detection: Detection }) {
   const navigate = useNavigate()
+  const classKey = resolveHotspotClassification(detection)
+  const classMeta = HOTSPOT_CLASSIFICATIONS[classKey]
+
   const riskLabel =
     detection.riskLevel === 'CRITICAL'
       ? 'Critical Risk'
@@ -17,7 +24,7 @@ export default function DetectionPopup({ detection }: { detection: Detection }) 
   return (
     <div className="min-w-[240px] max-w-[280px] p-1 select-none">
       {/* ── Header ───────────────────────────────────────── */}
-      <div className="flex items-start justify-between gap-2 mb-2.5">
+      <div className="flex items-start justify-between gap-2 mb-2">
         <div>
           <span className={cn('text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider', getRiskBadgeClasses(detection.riskLevel))}>
             {riskLabel}
@@ -25,6 +32,25 @@ export default function DetectionPopup({ detection }: { detection: Detection }) 
           <p className="text-[12px] font-bold text-gray-900 font-mono mt-1">{detection.id}</p>
         </div>
         <AlertTriangle size={18} className={cn(getRiskColor(detection.riskLevel), 'shrink-0 mt-0.5')} />
+      </div>
+
+      {/* ── Classification Badge ─────────────────────────── */}
+      <div
+        className="flex items-center gap-2 p-2 rounded-xl mb-2.5 border shadow-2xs"
+        style={{
+          backgroundColor: classMeta.bgColor,
+          borderColor: classMeta.borderColor,
+          color: classMeta.color,
+        }}
+      >
+        <div
+          className="w-7 h-7 rounded-lg bg-white p-1 shrink-0 shadow-2xs border border-black/[0.06] flex items-center justify-center"
+          dangerouslySetInnerHTML={{ __html: classMeta.svgIcon }}
+        />
+        <div className="min-w-0">
+          <p className="text-[9px] font-extrabold uppercase tracking-wider opacity-75">Classification</p>
+          <p className="text-[12px] font-extrabold leading-tight truncate">{classMeta.label}</p>
+        </div>
       </div>
 
       {/* ── Location Badge ───────────────────────────────── */}

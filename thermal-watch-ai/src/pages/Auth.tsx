@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-  Thermometer,
-  Wifi,
   Shield,
   Lock,
   Mail,
@@ -71,14 +69,16 @@ export default function Auth() {
       <div className="w-full max-w-md flex flex-col gap-5 relative z-10 animate-scale-in">
         {/* ── Brand Logo & Header ─────────────────────────── */}
         <div className="flex flex-col items-center text-center">
-          <div className="relative flex items-center justify-center w-12.5 h-12.5 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white shadow-xl shadow-blue-500/25 mb-3 border border-white/40">
-            <Thermometer size={24} />
-            <Wifi size={12} className="text-orange-300 absolute bottom-1.5 right-1.5" />
+          <div className="relative flex items-center justify-center w-16 h-16 rounded-2xl overflow-hidden shadow-xl shadow-blue-500/20 mb-3 border border-white/80 bg-white">
+            <img src="/ntis-logo.png" alt="NTIS Logo" className="w-full h-full object-cover" />
           </div>
-          <h1 className="text-[22px] font-extrabold text-gray-900 tracking-tight">
-            THERMAL WATCH <span className="text-blue-600">AI</span>
+          <h1 className="text-[26px] font-black text-gray-900 tracking-tight">
+            NTIS
           </h1>
-          <p className="text-[12px] text-gray-500 mt-1 max-w-xs leading-relaxed font-medium">
+          <p className="text-[13px] text-blue-700 font-extrabold tracking-wide uppercase mt-0.5">
+            National Thermal Intelligence System
+          </p>
+          <p className="text-[11.5px] text-gray-500 mt-1 max-w-xs leading-relaxed font-medium">
             Geospatial Radiometric Surveillance & Incident Telemetry Command
           </p>
         </div>

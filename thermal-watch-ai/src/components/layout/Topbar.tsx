@@ -32,13 +32,17 @@ function getPageMeta(pathname: string) {
   const meta = PAGE_META[pathname]
   if (meta) return meta
   const base = '/' + pathname.split('/')[1]
-  return PAGE_META[base] ?? { title: 'Thermal Watch', subtitle: 'Industrial thermal intelligence' }
+  return PAGE_META[base] ?? { title: 'NTIS', subtitle: 'National Thermal Intelligence System' }
 }
 
 export default function Topbar() {
   const location = useLocation()
   const navigate = useNavigate()
   const { title, subtitle } = getPageMeta(location.pathname)
+
+  useEffect(() => {
+    document.title = `${title} | NTIS — National Thermal Intelligence System`
+  }, [title])
   const {
     user,
     isAuthenticated,

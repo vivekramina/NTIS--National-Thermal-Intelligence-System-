@@ -10,7 +10,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Radio,
-  Satellite,
 } from 'lucide-react'
 import { useSidebar } from './AppShell'
 import { useApp } from '../../context/AppContext'
@@ -47,17 +46,17 @@ export default function Sidebar() {
     >
       {/* ── Brand / Header ───────────────────────────────── */}
       <div className="flex items-center gap-3 px-3.5 h-[64px] shrink-0 border-b border-slate-200/70 bg-white/40">
-        <div className="relative flex items-center justify-center w-9.5 h-9.5 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20 shrink-0">
-          <Satellite size={19} className="text-white" />
+        <div className="relative flex items-center justify-center w-10 h-10 rounded-xl overflow-hidden shadow-md shadow-blue-500/15 shrink-0 border border-slate-200/70 bg-white">
+          <img src="/ntis-logo.png" alt="NTIS Logo" className="w-full h-full object-cover" />
           <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full animate-pulse" />
         </div>
         {!collapsed && (
           <div className="min-w-0 animate-fade-in">
-            <p className="text-[13.5px] font-extrabold text-slate-900 leading-tight tracking-tight truncate">
-              THERMAL WATCH
+            <p className="text-[14px] font-black text-slate-900 leading-tight tracking-tight truncate">
+              NTIS
             </p>
-            <p className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase truncate mt-0.5">
-              Geospatial Telemetry
+            <p className="text-[9.5px] text-slate-500 font-bold tracking-tight truncate mt-0.5">
+              National Thermal Intelligence
             </p>
           </div>
         )}

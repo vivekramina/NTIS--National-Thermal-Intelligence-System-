@@ -35,6 +35,15 @@ lerna-debug.log*
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
-*.sw?
-Thumbs.db
+# Python & Backend
+__pycache__/
+*.py[cod]
+*$py.class
+*.db
+*.sqlite
+*.sqlite3
+.pytest_cache/
+backend/.env
+backend/.env.local
+thermal-watch-ai/.env
+thermal-watch-ai/.env.local

@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
 import type { Alert, RiskLevel, User, UserRole } from '../types'
 import { MOCK_ALERTS } from '../data/mockData'
+import { getPriorityAlerts } from '../services/api'
 
 export interface ToastItem {
   id: string
@@ -35,22 +36,22 @@ interface AppContextValue {
   deleteAlert: (id: string) => void
   addSimulatedAlert: () => void
 
+  // Global search palette
+  isSearchOpen: boolean
+  setIsSearchOpen: (open: boolean | ((prev: boolean) => boolean)) => void
+
   // Toasts
   toasts: ToastItem[]
   addToast: (title: string, message: string, type?: ToastItem['type']) => void
   removeToast: (id: string) => void
 
-  // Command Palette
-  isSearchOpen: boolean
-  setIsSearchOpen: (open: boolean) => void
-
-  // Telemetry refresh
+  // Global refresh synchronization
   lastRefreshTime: Date
   isRefreshing: boolean
   refreshData: () => Promise<void>
 }
 
-const AppContext = createContext<AppContextValue | null>(null)
+const AppContext = createContext<AppContextValue | undefined>(undefined)
 
 export function AppProvider({ children }: { children: ReactNode }) {
   // Auth state initialized from localStorage or default
@@ -68,6 +69,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [lastRefreshTime, setLastRefreshTime] = useState<Date>(new Date())
   const [isRefreshing, setIsRefreshing] = useState(false)
+
+  // Sync alerts from backend
+  useEffect(() => {
+    getPriorityAlerts().then((res) => {
+      if (res.data && res.data.length > 0) {
+        setAlerts(res.data)
+      }
+    }).catch(() => {})
+  }, [lastRefreshTime])
 
   const unreadCount = alerts.filter((a) => !a.isRead).length
 
@@ -121,6 +131,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   // Alert actions
   const markAsRead = useCallback((id: string) => {
     setAlerts((prev) => prev.map((a) => (a.id === id ? { ...a, isRead: true } : a)))
+    try {
+      fetch(`http://localhost:5000/api/alerts/${id}/acknowledge`, { method: 'PATCH' }).catch(() => {})
+    } catch {}
   }, [])
 
   const markAllAsRead = useCallback(() => {

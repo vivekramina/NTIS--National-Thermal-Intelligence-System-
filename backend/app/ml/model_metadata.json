@@ -1,0 +1,51 @@
+{
+  "trainedAt": "2026-09-11T12:40:08.754563",
+  "sampleCount": 240,
+  "featuresUsed": [
+    "frp",
+    "confidence",
+    "brightness",
+    "is_night",
+    "distance_to_industrial_m",
+    "persistence_days",
+    "is_persistent",
+    "land_cover_industrial_weight",
+    "land_cover_vegetation_weight"
+  ],
+  "accuracy": 1.0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1Score": 1.0,
+  "confusionMatrix": [
+    [
+      15,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      15,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      15,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      15
+    ]
+  ],
+  "classes": [
+    "FLARE_STACK_PERSISTENT",
+    "HIGH_CONFIDENCE_INDUSTRIAL_FIRE",
+    "NATURAL_WILDFIRE_VEGETATION",
+    "UNVERIFIED_THERMAL_ANOMALY"
+  ]
+}

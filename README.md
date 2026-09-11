@@ -1,6 +1,7 @@
-# SIH26162 — THERMAL WATCH AI
+# SIH26162 — NTIS (National Thermal Intelligence System)
 
-> **AI-Powered Industrial Fire & Persistent Thermal Source Intelligence**
+> **NTIS — National Thermal Intelligence System**  
+> *AI-Powered Industrial Fire & Persistent Thermal Source Intelligence*
 
 [![Smart India Hackathon](https://img.shields.io/badge/SIH-2026-blue.svg)](https://www.sih.gov.in/)
 [![React 19](https://img.shields.io/badge/React-19-blue.svg)](https://react.dev/)

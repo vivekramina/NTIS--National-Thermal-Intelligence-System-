@@ -2,7 +2,8 @@ import type { LucideIcon } from 'lucide-react'
 import { cn } from '../../lib/utils'
 
 interface MetricCardProps {
-  icon: LucideIcon
+  icon?: LucideIcon
+  iconImage?: string
   iconClassName?: string
   label: string
   value: string | number
@@ -14,6 +15,7 @@ interface MetricCardProps {
 
 export default function MetricCard({
   icon: Icon,
+  iconImage,
   iconClassName,
   label,
   value,
@@ -37,14 +39,20 @@ export default function MetricCard({
       {/* Top Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div
-            className={cn(
-              'w-8.5 h-8.5 rounded-xl flex items-center justify-center shrink-0 shadow-2xs transition-transform duration-200 group-hover:scale-105 border border-black/[0.04]',
-              iconClassName ?? 'bg-blue-50 text-blue-600'
-            )}
-          >
-            <Icon size={17} />
-          </div>
+          {iconImage ? (
+            <div className="w-11 h-11 flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105">
+              <img src={iconImage} alt={label} className="w-full h-full object-contain" />
+            </div>
+          ) : Icon ? (
+            <div
+              className={cn(
+                'w-8.5 h-8.5 rounded-xl flex items-center justify-center shrink-0 shadow-2xs transition-transform duration-200 group-hover:scale-105 border border-black/[0.04]',
+                iconClassName ?? 'bg-blue-50 text-blue-600'
+              )}
+            >
+              <Icon size={17} />
+            </div>
+          ) : null}
           <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider group-hover:text-gray-700 transition-colors">
             {label}
           </span>

@@ -150,8 +150,9 @@ export function formatNumber(n: number): string {
   return n.toLocaleString('en-IN');
 }
 
-export function formatDistance(meters: number): string {
-  if (meters < 1000) return `${meters} m`;
+export function formatDistance(meters?: number | null): string {
+  if (meters == null || isNaN(meters)) return 'Nearby';
+  if (meters < 1000) return `${Math.round(meters)} m`;
   return `${(meters / 1000).toFixed(1)} km`;
 }
 

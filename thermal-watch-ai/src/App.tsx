@@ -11,31 +11,34 @@ import Settings from './pages/Settings'
 import Auth from './pages/Auth'
 import { AppProvider } from './context/AppContext'
 import ToastContainer from './components/ui/ToastContainer'
+import ErrorBoundary from './components/ui/ErrorBoundary'
 
 export default function App() {
   return (
-    <AppProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Standalone Auth Routes */}
-          <Route path="/login" element={<Auth />} />
-          <Route path="/auth" element={<Auth />} />
+    <ErrorBoundary>
+      <AppProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Standalone Auth Routes */}
+            <Route path="/login" element={<Auth />} />
+            <Route path="/auth" element={<Auth />} />
 
-          {/* Main App Layout */}
-          <Route path="/" element={<AppShell />}>
-            <Route index element={<Navigate to="/overview" replace />} />
-            <Route path="overview" element={<Overview />} />
-            <Route path="live-map" element={<LiveMap />} />
-            <Route path="detections" element={<Detections />} />
-            <Route path="detections/:id" element={<DetectionDetail />} />
-            <Route path="persistent-sources" element={<PersistentSources />} />
-            <Route path="analytics" element={<Analytics />} />
-            <Route path="alerts" element={<Alerts />} />
-            <Route path="settings" element={<Settings />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-      <ToastContainer />
-    </AppProvider>
+            {/* Main App Layout */}
+            <Route path="/" element={<AppShell />}>
+              <Route index element={<Navigate to="/overview" replace />} />
+              <Route path="overview" element={<Overview />} />
+              <Route path="live-map" element={<LiveMap />} />
+              <Route path="detections" element={<Detections />} />
+              <Route path="detections/:id" element={<DetectionDetail />} />
+              <Route path="persistent-sources" element={<PersistentSources />} />
+              <Route path="analytics" element={<Analytics />} />
+              <Route path="alerts" element={<Alerts />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        <ToastContainer />
+      </AppProvider>
+    </ErrorBoundary>
   )
 }

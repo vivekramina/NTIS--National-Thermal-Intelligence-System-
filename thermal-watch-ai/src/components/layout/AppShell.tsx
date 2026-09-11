@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 import SearchModal from '../ui/SearchModal'
+import ErrorBoundary from '../ui/ErrorBoundary'
 
 interface SidebarContextValue {
   collapsed: boolean
@@ -32,7 +33,9 @@ export default function AppShell() {
         <div className="flex flex-col flex-1 min-w-0 overflow-hidden relative z-10">
           <Topbar />
           <main className="flex-1 overflow-y-auto overflow-x-hidden relative">
-            <Outlet />
+            <ErrorBoundary>
+              <Outlet />
+            </ErrorBoundary>
           </main>
         </div>
       </div>

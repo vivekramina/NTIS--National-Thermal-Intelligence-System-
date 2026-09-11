@@ -241,3 +241,43 @@ body,
   font-size: 11px !important;
 }
 .recharts-tooltip-wrapper { outline: none !important; }
+
+/* ============================================================
+   Leaflet Hardware-Accelerated Rendering & Smooth Navigation
+   ============================================================ */
+.leaflet-container {
+  font-family: inherit;
+  background-color: #0b1120 !important;
+}
+.leaflet-pane {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+.leaflet-tile-container {
+  will-change: transform;
+}
+.leaflet-bar {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+.leaflet-bar a {
+  background-color: rgba(15, 23, 42, 0.9) !important;
+  color: #f8fafc !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  transition: all 0.15s ease !important;
+  font-weight: bold !important;
+}
+.leaflet-bar a:hover {
+  background-color: #1e293b !important;
+  color: #38bdf8 !important;
+}
+.leaflet-bar a:last-child {
+  border-bottom: none !important;
+}
