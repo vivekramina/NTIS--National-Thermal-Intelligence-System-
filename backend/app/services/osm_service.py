@@ -315,10 +315,11 @@ class OsmService:
         """
         session = get_db_session()
         try:
-            count = session.query(IndustrialFacility).count()
-            if count == 0:
-                logger.info('Populating database with verified OpenStreetMap industrial facilities...')
-                for fac_data in VERIFIED_OSM_FACILITIES:
+            logger.info('Verifying OpenStreetMap industrial facility catalog...')
+            added = 0
+            for fac_data in VERIFIED_OSM_FACILITIES:
+                existing = session.query(IndustrialFacility).filter(IndustrialFacility.id == fac_data['id']).first()
+                if not existing:
                     fac = IndustrialFacility(
                         id=fac_data['id'],
                         osm_id=fac_data['osm_id'],
@@ -331,8 +332,10 @@ class OsmService:
                         tags_json=json.dumps({'industrial': fac_data['facility_type']})
                     )
                     session.add(fac)
-                session.commit()
-                logger.info('OpenStreetMap industrial facilities successfully seeded.')
+                    added += 1
+            session.commit()
+            if added > 0:
+                logger.info(f'Added {added} new OpenStreetMap industrial complexes to database.')
         except Exception as e:
             session.rollback()
             logger.error(f'Failed to seed initial OSM facilities: {e}')
