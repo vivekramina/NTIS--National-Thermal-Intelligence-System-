@@ -51,6 +51,16 @@ def create_app(test_config=None) -> Flask:
     app.register_blueprint(analytics_bp, url_prefix='/api')
     app.register_blueprint(admin_bp, url_prefix='/api')
 
+    # Root status endpoint for cloud health checks
+    @app.route('/', methods=['GET'])
+    def root_status():
+        return jsonify({
+            'service': 'NTIS — National Thermal Intelligence System API',
+            'status': 'online',
+            'health': '/api/health',
+            'documentation': '/api/analytics'
+        }), 200
+
     # Global Error Handlers
     @app.errorhandler(404)
     def not_found(error):
