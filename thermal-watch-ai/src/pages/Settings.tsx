@@ -46,9 +46,9 @@ export default function Settings() {
 
   function Section({ title, icon: Icon, children }: { title: string; icon: React.ComponentType<{size?: number; className?: string}>; children: React.ReactNode }) {
     return (
-      <div className="glass-card p-5 shadow-xs">
-        <div className="flex items-center gap-2.5 mb-4 pb-3 border-b border-black/[0.06]">
-          <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shadow-2xs">
+      <div className="glass-card p-5.5 shadow-xs border border-white/80">
+        <div className="flex items-center gap-2.5 mb-4 pb-3.5 border-b border-black/[0.05]">
+          <div className="w-8.5 h-8.5 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center shadow-2xs border border-blue-200/60">
             <Icon size={16} />
           </div>
           <h2 className="text-[14px] font-bold text-gray-900">{title}</h2>
@@ -61,95 +61,95 @@ export default function Settings() {
   return (
     <div className="p-5 flex flex-col gap-5 max-w-3xl animate-fade-in pb-12">
       {/* ── Header ───────────────────────────────────────── */}
-      <div className="bg-white p-4.5 rounded-2xl border border-black/[0.06] shadow-xs">
-        <h1 className="text-[18px] font-bold text-gray-900">System Settings & Controls</h1>
+      <div className="glass-panel p-4.5 rounded-2xl border border-white/80 shadow-xs">
+        <h1 className="text-[18px] font-extrabold text-gray-900">System Telemetry & Engine Configuration</h1>
         <p className="text-[12px] text-gray-400 mt-0.5">
-          Manage satellite streaming parameters, automated alert dispatch thresholds, and display profiles
+          Manage orbital streaming parameters, automated hazard classification thresholds, and display layers
         </p>
       </div>
 
       {/* ── Data Sources ─────────────────────────────────── */}
-      <Section title="Data Ingestion Feeds" icon={Database}>
-        <div className="divide-y divide-black/[0.05]">
+      <Section title="Data Ingestion Streams" icon={Database}>
+        <div className="divide-y divide-black/[0.04]">
           <ToggleSwitch
             checked={firmsEnabled}
             onChange={setFirmsEnabled}
-            label="NASA FIRMS Real-time Ingestion"
-            description="Continuous thermal anomaly feed from MODIS and VIIRS satellite instruments"
+            label="NASA FIRMS Radiometric Stream"
+            description="Continuous thermal anomaly feed from MODIS and VIIRS satellite sensors"
           />
           <ToggleSwitch
             checked={osmEnabled}
             onChange={setOsmEnabled}
-            label="OpenStreetMap Industrial Registry Sync"
-            description="Synchronize manufacturing, chemical, refinery, and power plant facilities"
+            label="OpenStreetMap Industrial Registry Integration"
+            description="Correlate anomalies with chemical plants, refineries, and manufacturing complexes"
           />
           <ToggleSwitch
             checked={satelliteEnabled}
             onChange={setSatelliteEnabled}
-            label="High-Resolution Optical Satellite Feed"
-            description="Secondary multispectral sensor verification stream"
+            label="Copernicus Sentinel-2 Optical Verification"
+            description="Multi-spectral high-resolution optical feed for false-positive reduction"
           />
           <ToggleSwitch
             checked={aiEnabled}
             onChange={setAiEnabled}
-            label="AI Hazard Classification Pipeline"
-            description="Machine learning model evaluating industrial fire risk scores"
+            label="Hazard Evaluation Neural Pipeline"
+            description="Machine learning classifier computing composite risk and FRP propagation scores"
           />
         </div>
         <div className="mt-4 pt-3.5 border-t border-black/[0.05] flex items-center justify-between">
           <div>
-            <p className="text-[13px] font-semibold text-gray-800">Telemetry Refresh Interval</p>
-            <p className="text-[11px] text-gray-400">Automated polling cadence for thermal scans</p>
+            <p className="text-[13px] font-bold text-gray-800">Telemetry Ingestion Cadence</p>
+            <p className="text-[11px] text-gray-400">Automated polling interval for new satellite tile passes</p>
           </div>
           <select
             value={updateInterval}
             onChange={(e) => setUpdateInterval(e.target.value)}
-            className="h-9 px-3 text-[12px] font-medium bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:border-blue-500 cursor-pointer shadow-2xs"
+            className="h-9.5 px-3 text-[12px] font-semibold bg-white/80 border border-black/[0.08] rounded-xl text-gray-800 focus:outline-none focus:border-blue-500 cursor-pointer shadow-2xs"
           >
             {['5', '10', '15', '30', '60'].map((v) => <option key={v} value={v}>Every {v} minutes</option>)}
           </select>
         </div>
-        <div className="mt-3.5 bg-blue-50/80 border border-blue-100 rounded-xl p-3 flex items-start gap-2.5">
+        <div className="mt-3.5 bg-blue-50/70 border border-blue-100 rounded-xl p-3 flex items-start gap-2.5">
           <Info size={15} className="text-blue-600 mt-0.5 shrink-0" />
-          <p className="text-[11px] text-blue-800 leading-relaxed">
-            NASA FIRMS API credentials and PostGIS database connections are secured server-side. Zero API keys or secrets are exposed in the client.
+          <p className="text-[11px] text-blue-900 leading-relaxed font-medium">
+            NASA FIRMS API credentials and spatial PostGIS data stores are securely managed server-side. Zero sensitive tokens are exposed to browser clients.
           </p>
         </div>
       </Section>
 
-      {/* ── Alert Notifications ──────────────────────────── */}
-      <Section title="Notification Rules" icon={Bell}>
-        <div className="divide-y divide-black/[0.05]">
+      {/* ── Alert Notifications ──────────────────── */}
+      <Section title="Automated Incident Dispatch Rules" icon={Bell}>
+        <div className="divide-y divide-black/[0.04]">
           <ToggleSwitch
             checked={notifCritical}
             onChange={setNotifCritical}
             label="Immediate Critical Hazard Broadcasts"
-            description="Flash popups and sound indicators for confirmed high FRP anomalies"
+            description="Real-time alert dispatch for confirmed anomalies with FRP exceeding 250 MW"
           />
           <ToggleSwitch
             checked={notifHigh}
             onChange={setNotifHigh}
-            label="High Risk Anomalies Notification"
-            description="Alert when anomalies are detected within 500m of industrial facilities"
+            label="Industrial Proximity Hazard Alarms"
+            description="Trigger alerts when anomalies occur within 500m of designated industrial facilities"
           />
           <ToggleSwitch
             checked={notifMedium}
             onChange={setNotifMedium}
-            label="Medium Risk Watchlist Alerts"
-            description="Queue warnings for elevated background thermal signatures"
+            label="Medium Risk Telemetry Queue"
+            description="Queue elevated background thermal anomalies for dispatcher review"
           />
           <ToggleSwitch
             checked={notifPersistent}
             onChange={setNotifPersistent}
-            label="Persistent Source Recurrence Alarms"
-            description="Trigger alerts when a location fires across 3+ consecutive satellite passes"
+            label="Persistent Hotspot Recurrence Alarms"
+            description="Automated alarm when a coordinate emits thermal heat across 3+ satellite passes"
           />
         </div>
       </Section>
 
-      {/* ── Display Preferences ──────────────────────────── */}
+      {/* ── Display Preferences ──────────────────── */}
       <Section title="Geospatial Display Preferences" icon={Monitor}>
-        <div className="divide-y divide-black/[0.05]">
+        <div className="divide-y divide-black/[0.04]">
           <ToggleSwitch
             checked={showFacilities}
             onChange={setShowFacilities}
@@ -159,73 +159,74 @@ export default function Settings() {
           <ToggleSwitch
             checked={showConfidence}
             onChange={setShowConfidence}
-            label="Display AI & Satellite Confidence Badges"
-            description="Show confidence percentage bars next to thermal records"
+            label="Display Radiometric Reliability Confidence"
+            description="Show confidence percentage bars and instrument tags on detection cards"
           />
           <ToggleSwitch
             checked={compactMode}
             onChange={setCompactMode}
-            label="Compact Data Grid Density"
-            description="Reduce row padding in detection tables for high-density monitors"
+            label="High-Density Table Row Density"
+            description="Reduce row padding in detection tables for multi-monitor command consoles"
           />
         </div>
       </Section>
 
-      {/* ── Security ─────────────────────────────────────── */}
-      <Section title="System Architecture & Compliance" icon={Shield}>
+      {/* ── Security ─────────────────────────────── */}
+      <Section title="Security Architecture & Protocol" icon={Shield}>
         <div className="space-y-2.5 text-[12px] text-gray-600">
-          <div className="flex items-center gap-2 bg-emerald-50/60 p-2.5 rounded-xl border border-emerald-100">
-            <Check size={15} className="text-emerald-600 shrink-0" />
-            <span className="text-emerald-900 font-medium">NASA FIRMS API Key: Stored in isolated backend vault</span>
+          <div className="flex items-center gap-2 bg-emerald-500/10 p-2.5 rounded-xl border border-emerald-200/60">
+            <Check size={15} className="text-emerald-700 shrink-0" />
+            <span className="text-emerald-900 font-bold">NASA FIRMS API Key: Secured in backend encrypted key vault</span>
           </div>
-          <div className="flex items-center gap-2 bg-emerald-50/60 p-2.5 rounded-xl border border-emerald-100">
-            <Check size={15} className="text-emerald-600 shrink-0" />
-            <span className="text-emerald-900 font-medium">PostgreSQL / PostGIS: Role-based authenticated connection</span>
+          <div className="flex items-center gap-2 bg-emerald-500/10 p-2.5 rounded-xl border border-emerald-200/60">
+            <Check size={15} className="text-emerald-700 shrink-0" />
+            <span className="text-emerald-900 font-bold">PostgreSQL / PostGIS: Role-based spatial indexing</span>
           </div>
-          <div className="flex items-center gap-2 bg-emerald-50/60 p-2.5 rounded-xl border border-emerald-100">
-            <Check size={15} className="text-emerald-600 shrink-0" />
-            <span className="text-emerald-900 font-medium">Zero telemetry credentials exposed to browser client</span>
+          <div className="flex items-center gap-2 bg-emerald-500/10 p-2.5 rounded-xl border border-emerald-200/60">
+            <Check size={15} className="text-emerald-700 shrink-0" />
+            <span className="text-emerald-900 font-bold">Zero telemetry credentials exposed to client browser</span>
           </div>
         </div>
       </Section>
 
-      {/* ── About ────────────────────────────────────────── */}
-      <Section title="Platform Metadata" icon={Satellite}>
+      {/* ── About ────────────────────────────────── */}
+      <Section title="Platform Specifications" icon={Satellite}>
         <div className="grid grid-cols-2 gap-3 text-[12px]">
-          <div className="bg-gray-50 p-3 rounded-xl">
-            <p className="text-gray-400">SIH Project ID</p>
+          <div className="bg-white/60 border border-black/[0.04] p-3 rounded-xl">
+            <p className="text-gray-400 font-medium">SIH Project ID</p>
             <p className="font-mono font-bold text-gray-800 text-[13px] mt-0.5">SIH26162</p>
           </div>
-          <div className="bg-gray-50 p-3 rounded-xl">
-            <p className="text-gray-400">Release Version</p>
-            <p className="font-bold text-gray-800 text-[13px] mt-0.5">v1.2.0-step1</p>
+          <div className="bg-white/60 border border-black/[0.04] p-3 rounded-xl">
+            <p className="text-gray-400 font-medium">Release Build</p>
+            <p className="font-bold text-gray-800 text-[13px] mt-0.5">v2.0.0-mission-control</p>
           </div>
-          <div className="bg-gray-50 p-3 rounded-xl">
-            <p className="text-gray-400">Environment</p>
-            <p className="font-bold text-amber-600 text-[13px] mt-0.5">Demo / Simulated Feeds</p>
+          <div className="bg-white/60 border border-black/[0.04] p-3 rounded-xl">
+            <p className="text-gray-400 font-medium">Environment</p>
+            <p className="font-bold text-blue-700 text-[13px] mt-0.5">Active Telemetry Node</p>
           </div>
-          <div className="bg-gray-50 p-3 rounded-xl">
-            <p className="text-gray-400">AI Risk Classifier</p>
-            <p className="font-bold text-purple-600 text-[13px] mt-0.5">Integrated</p>
+          <div className="bg-white/60 border border-black/[0.04] p-3 rounded-xl">
+            <p className="text-gray-400 font-medium">AI Risk Classifier</p>
+            <p className="font-bold text-purple-700 text-[13px] mt-0.5">Operational</p>
           </div>
         </div>
       </Section>
 
-      {/* ── Action Buttons ───────────────────────────────── */}
+      {/* ── Action Buttons ───────────────────────── */}
       <div className="flex items-center justify-end gap-2.5 pt-2">
         <button
           onClick={handleReset}
-          className="flex items-center gap-1.5 h-9.5 px-4 text-[13px] font-semibold text-gray-600 bg-white hover:bg-gray-50 border border-gray-200 rounded-xl transition-all shadow-2xs active:scale-95"
+          className="flex items-center gap-1.5 h-9.5 px-4 text-[13px] font-bold text-gray-600 bg-white/90 hover:bg-white border border-black/[0.08] rounded-xl transition-all shadow-2xs active:scale-95"
         >
           <RotateCcw size={14} /> Reset Defaults
         </button>
         <button
           onClick={handleSave}
-          className="flex items-center gap-2 h-9.5 px-5 text-[13px] font-semibold bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20 active:scale-95"
+          className="flex items-center gap-2 h-9.5 px-5 text-[13px] font-bold bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20 active:scale-95"
         >
-          <Check size={15} /> Save Changes
+          <Check size={15} /> Apply Settings
         </button>
       </div>
     </div>
   )
 }
+

@@ -116,16 +116,16 @@ export default function Detections() {
   return (
     <div className="p-5 flex flex-col gap-4 animate-fade-in">
       {/* ── Header ───────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4.5 rounded-2xl border border-black/[0.06] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 glass-panel p-4.5 rounded-2xl border border-white/80 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-[18px] font-bold text-gray-900">Detections Directory</h1>
-            <span className="text-[11px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full border border-blue-200 shadow-2xs">
-              {filtered.length} records
+            <h1 className="text-[18px] font-extrabold text-gray-900">Radiometric Detection Index</h1>
+            <span className="text-[11px] font-bold bg-blue-500/10 text-blue-700 px-2.5 py-0.5 rounded-full border border-blue-200/80 shadow-2xs">
+              {filtered.length} records verified
             </span>
           </div>
           <p className="text-[12px] text-gray-400 mt-0.5">
-            Geospatial thermal anomaly index with automated risk evaluation
+            Geospatial thermal anomaly telemetry with automated hazard classification
           </p>
         </div>
 
@@ -133,7 +133,7 @@ export default function Detections() {
         <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={resetFilters}
-            className="flex items-center gap-1.5 h-8.5 px-3 text-[12px] font-semibold text-gray-600 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-xl transition-all shadow-2xs active:scale-95"
+            className="flex items-center gap-1.5 h-8.5 px-3 text-[12px] font-bold text-gray-600 bg-white/90 hover:bg-white border border-black/[0.08] rounded-xl transition-all shadow-2xs active:scale-95"
             title="Reset active filters"
           >
             <RotateCcw size={13} />
@@ -141,7 +141,7 @@ export default function Detections() {
           </button>
           <button
             onClick={exportCSV}
-            className="flex items-center gap-1.5 h-8.5 px-3.5 text-[12px] font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-2xs active:scale-95 shadow-blue-500/10"
+            className="flex items-center gap-1.5 h-8.5 px-3.5 text-[12px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-2xs active:scale-95 shadow-blue-500/10"
           >
             <Download size={14} />
             <span>Export CSV</span>
@@ -150,16 +150,16 @@ export default function Detections() {
       </div>
 
       {/* ── Search & Filter Controls ─────────────────────── */}
-      <div className="glass-card p-3.5 shadow-xs">
+      <div className="glass-card p-3.5 shadow-xs border border-white/80">
         <div className="flex flex-wrap items-center gap-3">
           {/* Search */}
           <div className="relative flex-1 min-w-[220px]">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+            <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
             <input
               value={search}
               onChange={(e) => { setSearch(e.target.value); setPage(1) }}
-              placeholder="Filter by Anomaly ID or Facility name…"
-              className="w-full h-9 pl-9 pr-3 text-[13px] bg-gray-50 border border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
+              placeholder="Search by Anomaly ID, Sector, or Facility name…"
+              className="w-full h-9.5 pl-9.5 pr-3.5 text-[13px] bg-white/80 border border-black/[0.08] rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white transition-colors"
             />
           </div>
 
@@ -169,7 +169,7 @@ export default function Detections() {
             <select
               value={riskFilter}
               onChange={(e) => { setRiskFilter(e.target.value as RiskLevel | 'ALL'); setPage(1) }}
-              className="h-9 px-3 text-[12px] font-medium bg-gray-50 border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:border-blue-500 cursor-pointer"
+              className="h-9.5 px-3 text-[12px] font-semibold bg-white/80 border border-black/[0.08] rounded-xl text-gray-800 focus:outline-none focus:border-blue-500 cursor-pointer shadow-2xs"
             >
               {RISK_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
@@ -179,27 +179,27 @@ export default function Detections() {
           <select
             value={sourceFilter}
             onChange={(e) => { setSourceFilter(e.target.value); setPage(1) }}
-            className="h-9 px-3 text-[12px] font-medium bg-gray-50 border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:border-blue-500 cursor-pointer"
+            className="h-9.5 px-3 text-[12px] font-semibold bg-white/80 border border-black/[0.08] rounded-xl text-gray-800 focus:outline-none focus:border-blue-500 cursor-pointer shadow-2xs"
           >
-            {SOURCE_OPTIONS.map((s) => <option key={s} value={s}>{s === 'ALL' ? 'All Satellite Sources' : s}</option>)}
+            {SOURCE_OPTIONS.map((s) => <option key={s} value={s}>{s === 'ALL' ? 'All Instruments' : s}</option>)}
           </select>
         </div>
       </div>
 
       {/* ── Table ─────────────────────────────────────────── */}
-      <div className="glass-card overflow-hidden shadow-xs">
+      <div className="glass-card overflow-hidden shadow-xs border border-white/80">
         <div className="overflow-x-auto">
           <table className="w-full text-[13px]">
             <thead>
-              <tr className="border-b border-black/[0.06] bg-gray-50/70">
-                <th className="text-left px-4 py-3"><SortBtn k="riskLevel" label="Risk Rating" /></th>
-                <th className="text-left px-4 py-3 text-gray-600 font-bold text-[12px]">Detection ID</th>
+              <tr className="border-b border-black/[0.06] bg-white/40 backdrop-blur-md">
+                <th className="text-left px-4 py-3"><SortBtn k="riskLevel" label="Hazard Rating" /></th>
+                <th className="text-left px-4 py-3 text-gray-700 font-bold text-[12px]">Telemetry ID</th>
                 <th className="text-left px-4 py-3"><SortBtn k="frp" label="FRP (MW)" /></th>
-                <th className="text-left px-4 py-3"><SortBtn k="confidence" label="Confidence" /></th>
-                <th className="text-left px-4 py-3 text-gray-600 font-bold text-[12px]">Persistence</th>
-                <th className="text-left px-4 py-3 text-gray-600 font-bold text-[12px]">Nearby Facility</th>
-                <th className="text-left px-4 py-3 text-gray-600 font-bold text-[12px]">Satellite</th>
-                <th className="text-left px-4 py-3"><SortBtn k="detectedAt" label="Detected" /></th>
+                <th className="text-left px-4 py-3"><SortBtn k="confidence" label="Reliability" /></th>
+                <th className="text-left px-4 py-3 text-gray-700 font-bold text-[12px]">Persistence</th>
+                <th className="text-left px-4 py-3 text-gray-700 font-bold text-[12px]">Adjacent Complex</th>
+                <th className="text-left px-4 py-3 text-gray-700 font-bold text-[12px]">Instrument</th>
+                <th className="text-left px-4 py-3"><SortBtn k="detectedAt" label="Timestamp" /></th>
                 <th className="px-4 py-3" />
               </tr>
             </thead>
@@ -208,7 +208,7 @@ export default function Detections() {
                 [...Array(6)].map((_, i) => (
                   <tr key={i}>
                     {[...Array(9)].map((_, j) => (
-                      <td key={j} className="px-4 py-3.5"><div className="h-4 bg-gray-100 rounded-md animate-pulse" /></td>
+                      <td key={j} className="px-4 py-3.5"><div className="h-4 bg-gray-200/50 rounded-md animate-pulse" /></td>
                     ))}
                   </tr>
                 ))
@@ -222,12 +222,12 @@ export default function Detections() {
                 paginated.map((det) => (
                   <tr
                     key={det.id}
-                    className="hover:bg-blue-50/40 transition-colors cursor-pointer group"
+                    className="hover:bg-white/70 transition-colors cursor-pointer group"
                     onClick={() => navigate(`/detections/${det.id}`)}
                   >
                     <td className="px-4 py-3.5">
                       <div className="flex items-center gap-1.5">
-                        <span className={cn('w-2 h-2 rounded-full shrink-0', getRiskDotColor(det.riskLevel))} />
+                        <span className={cn('w-2 h-2 rounded-full shrink-0 shadow-2xs', getRiskDotColor(det.riskLevel))} />
                         <span className={cn('text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider', getRiskBadgeClasses(det.riskLevel))}>
                           {det.riskLevel}
                         </span>
@@ -236,20 +236,22 @@ export default function Detections() {
                     <td className="px-4 py-3.5 font-mono text-[12px] font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
                       {det.id}
                     </td>
-                    <td className="px-4 py-3.5 font-bold text-gray-900">{det.frp} MW</td>
+                    <td className="px-4 py-3.5 font-extrabold text-gray-900">{det.frp} MW</td>
                     <td className="px-4 py-3.5">
                       <div className="flex items-center gap-2">
-                        <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div className="w-16 h-1.5 bg-black/[0.06] rounded-full overflow-hidden">
                           <div className="h-full bg-blue-600 rounded-full" style={{ width: `${det.confidence}%` }} />
                         </div>
-                        <span className="font-semibold text-gray-700">{det.confidence}%</span>
+                        <span className="font-bold text-gray-700">{det.confidence}%</span>
                       </div>
                     </td>
                     <td className="px-4 py-3.5 text-gray-600">
                       {det.persistenceDays > 0 ? (
-                        <span className="font-semibold text-gray-700">{det.persistenceDays} days</span>
+                        <span className="font-bold text-amber-800 bg-amber-500/10 px-2 py-0.5 rounded-md text-[11px] border border-amber-200/60">
+                          {det.persistenceDays} days
+                        </span>
                       ) : (
-                        <span className="text-emerald-700 bg-emerald-50 border border-emerald-200 text-[11px] font-bold px-1.5 py-0.2 rounded">
+                        <span className="text-emerald-700 bg-emerald-500/10 border border-emerald-200/80 text-[11px] font-bold px-2 py-0.5 rounded-md">
                           New
                         </span>
                       )}
@@ -257,19 +259,19 @@ export default function Detections() {
                     <td className="px-4 py-3.5 text-gray-600 max-w-[200px]">
                       {det.nearbyFacility ? (
                         <div>
-                          <p className="truncate font-semibold text-gray-800">{det.nearbyFacility.name}</p>
-                          <p className="text-[11px] text-gray-400">{formatDistance(det.nearbyFacility.distanceMeters)} away</p>
+                          <p className="truncate font-bold text-gray-800">{det.nearbyFacility.name}</p>
+                          <p className="text-[11px] text-gray-400 font-medium">{formatDistance(det.nearbyFacility.distanceMeters)} away</p>
                         </div>
                       ) : (
                         <span className="text-gray-300">—</span>
                       )}
                     </td>
                     <td className="px-4 py-3.5">
-                      <span className="text-[11px] font-bold text-purple-700 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-md">
+                      <span className="text-[11px] font-bold text-purple-700 bg-purple-500/10 border border-purple-200/80 px-2 py-0.5 rounded-md">
                         {det.source}
                       </span>
                     </td>
-                    <td className="px-4 py-3.5 text-gray-400 text-[12px]">
+                    <td className="px-4 py-3.5 text-gray-400 text-[12px] font-medium">
                       {formatRelativeTime(det.detectedAt)}
                     </td>
                     <td className="px-4 py-3.5 text-right">

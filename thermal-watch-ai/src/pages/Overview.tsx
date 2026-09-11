@@ -80,31 +80,31 @@ export default function Overview() {
     <div className="w-full min-h-full flex flex-col gap-5 p-5 pb-12 animate-fade-in relative z-0">
 
       {/* ── Header ───────────────────────────────────────── */}
-      <div className="flex items-start justify-between gap-4 shrink-0">
+      <div className="flex items-start justify-between gap-4 shrink-0 glass-panel p-4.5 rounded-2xl border border-white/80 shadow-xs">
         <div>
-          <h1 className="text-[20px] font-bold text-gray-900 leading-tight">
-            Monitoring Overview
+          <h1 className="text-[20px] font-extrabold text-gray-900 leading-tight">
+            Geospatial Telemetry Mission Control
           </h1>
-          <p className="text-[12px] text-gray-400 mt-0.5">
-            Satellite-based industrial fire and thermal anomaly intelligence
+          <p className="text-[12px] text-gray-500 mt-0.5">
+            Real-time orbital radiometric surveillance and automated hazard classification
           </p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
-          <div className="flex items-center gap-1.5 text-[12px] text-gray-500 font-medium bg-white px-2.5 py-1 rounded-lg border border-gray-200/80 shadow-2xs">
+          <div className="flex items-center gap-1.5 text-[12px] text-gray-600 font-semibold glass-pill px-3 py-1.5 rounded-xl border border-white/80 shadow-2xs">
             <Clock size={12} className="text-gray-400" />
-            <span>Updated {getLastUpdatedLabel()}</span>
+            <span>Telemetry {getLastUpdatedLabel()}</span>
           </div>
           <button
             onClick={() => refreshData()}
             disabled={isRefreshing || loading}
             className={cn(
-              'flex items-center gap-1.5 h-8 px-3 text-[12px] font-medium rounded-lg border transition-all duration-150 shadow-2xs active:scale-95',
-              'bg-white border-gray-200 text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900',
+              'flex items-center gap-1.5 h-8.5 px-3.5 text-[12px] font-bold rounded-xl border transition-all duration-150 shadow-2xs active:scale-95',
+              'bg-white/90 border-black/[0.08] text-gray-700 hover:bg-white hover:border-black/[0.15] hover:text-gray-900',
               'disabled:opacity-40 disabled:cursor-not-allowed'
             )}
           >
             <RefreshCw size={13} className={cn('text-gray-500', isRefreshing && 'animate-spin text-blue-600')} />
-            Refresh Data
+            Sync Feeds
           </button>
         </div>
       </div>
@@ -113,44 +113,44 @@ export default function Overview() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 shrink-0">
         {loading ? (
           [...Array(4)].map((_, i) => (
-            <div key={i} className="h-[102px] rounded-2xl bg-gray-100 animate-pulse" />
+            <div key={i} className="h-[102px] rounded-2xl bg-gray-200/50 animate-pulse" />
           ))
         ) : (
           <>
             <MetricCard
               icon={Flame}
-              iconClassName="bg-orange-50 text-orange-600 border border-orange-100"
-              label="Active Anomalies"
+              iconClassName="bg-orange-500/10 text-orange-600 border border-orange-200/60"
+              label="Active Thermal Anomalies"
               value={metrics ? formatNumber(metrics.activeAnomalies) : '—'}
-              delta={metrics ? `+${metrics.activeAnomaliesDelta} in last 24h` : undefined}
-              deltaClassName="text-orange-600"
+              delta={metrics ? `+${metrics.activeAnomaliesDelta} (24h)` : undefined}
+              deltaClassName="text-orange-700 bg-orange-500/10 border-orange-200/60"
               onClick={() => navigate('/detections')}
             />
             <MetricCard
               icon={AlertTriangle}
-              iconClassName="bg-red-50 text-red-600 border border-red-100"
-              label="High Risk"
+              iconClassName="bg-red-500/10 text-red-600 border border-red-200/60"
+              label="Priority Hazards"
               value={metrics ? formatNumber(metrics.highRisk) : '—'}
               delta={metrics ? `${metrics.highRiskNewToday} new today` : undefined}
-              deltaClassName="text-red-600"
+              deltaClassName="text-red-700 bg-red-500/10 border-red-200/60"
               onClick={() => navigate('/detections')}
             />
             <MetricCard
               icon={Activity}
-              iconClassName="bg-amber-50 text-amber-600 border border-amber-100"
+              iconClassName="bg-amber-500/10 text-amber-600 border border-amber-200/60"
               label="Persistent Sources"
               value={metrics ? formatNumber(metrics.persistentSources) : '—'}
-              delta={metrics ? `${metrics.persistentSourcesActive} currently active` : undefined}
-              deltaClassName="text-amber-600"
+              delta={metrics ? `${metrics.persistentSourcesActive} recurring` : undefined}
+              deltaClassName="text-amber-700 bg-amber-500/10 border-amber-200/60"
               onClick={() => navigate('/persistent-sources')}
             />
             <MetricCard
               icon={Building2}
-              iconClassName="bg-blue-50 text-blue-600 border border-blue-100"
-              label="Industrial Sites"
+              iconClassName="bg-blue-500/10 text-blue-600 border border-blue-200/60"
+              label="Industrial Plants"
               value={metrics ? formatNumber(metrics.industrialSites) : '—'}
-              delta="OSM mapped facilities"
-              deltaClassName="text-gray-400"
+              delta="OSM registry mapped"
+              deltaClassName="text-blue-700 bg-blue-500/10 border-blue-200/60"
               onClick={() => navigate('/live-map')}
             />
           </>
@@ -166,20 +166,20 @@ export default function Overview() {
       )}>
         
         {/* ── Live Thermal Activity Square Map Card ─────────── */}
-        <div className="glass-card flex flex-col overflow-hidden shadow-xs hover:shadow-md transition-shadow w-full">
+        <div className="glass-card flex flex-col overflow-hidden shadow-xs hover:shadow-md transition-shadow w-full border border-white/80">
           {/* Header with Aspect Ratio & Reset Controls */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-black/[0.06] shrink-0 bg-gray-50/50">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-black/[0.05] shrink-0 bg-white/40 backdrop-blur-md">
             <div className="flex items-center gap-2.5">
               <div>
                 <div className="flex items-center gap-2">
-                  <h2 className="text-[14px] font-bold text-gray-900">Live Thermal Activity</h2>
-                  <div className="flex items-center gap-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-2 py-0.5 rounded-full shadow-2xs">
+                  <h2 className="text-[14px] font-bold text-gray-900">Live Radiometric Canvas</h2>
+                  <div className="flex items-center gap-1.5 bg-emerald-500/10 text-emerald-800 border border-emerald-200/80 px-2 py-0.5 rounded-full shadow-2xs">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-[10px] font-bold">1:1 Square Map</span>
+                    <span className="text-[10px] font-bold">1:1 Geospatial Grid</span>
                   </div>
                 </div>
                 <p className="text-[11px] text-gray-400 mt-0.5">
-                  {detections.length} anomalies • {facilities.length} industrial sites
+                  {detections.length} anomaly coordinates • {facilities.length} industrial complexes
                 </p>
               </div>
             </div>
@@ -190,19 +190,19 @@ export default function Overview() {
               <button
                 onClick={resetMapView}
                 title="Reset Map Center"
-                className="p-1.5 text-gray-500 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-1.5 text-gray-500 hover:text-gray-900 hover:bg-white/80 rounded-lg transition-colors"
               >
                 <RotateCcw size={14} />
               </button>
 
               {/* Aspect Ratio Switcher */}
-              <div className="flex bg-gray-100/90 p-0.5 rounded-lg border border-gray-200/60">
+              <div className="flex bg-black/[0.04] p-0.5 rounded-xl border border-black/[0.04]">
                 <button
                   onClick={() => setAspectMode('square')}
                   className={cn(
-                    'flex items-center gap-1 px-2 py-0.5 text-[11px] font-bold rounded-md transition-all',
+                    'flex items-center gap-1 px-2.5 py-0.5 text-[11px] font-bold rounded-lg transition-all',
                     aspectMode === 'square'
-                      ? 'bg-white text-gray-900 shadow-2xs'
+                      ? 'bg-white text-gray-900 shadow-2xs font-extrabold'
                       : 'text-gray-500 hover:text-gray-900'
                   )}
                   title="Square (1:1 Aspect Ratio)"
@@ -213,9 +213,9 @@ export default function Overview() {
                 <button
                   onClick={() => setAspectMode('wide')}
                   className={cn(
-                    'flex items-center gap-1 px-2 py-0.5 text-[11px] font-bold rounded-md transition-all',
+                    'flex items-center gap-1 px-2.5 py-0.5 text-[11px] font-bold rounded-lg transition-all',
                     aspectMode === 'wide'
-                      ? 'bg-white text-gray-900 shadow-2xs'
+                      ? 'bg-white text-gray-900 shadow-2xs font-extrabold'
                       : 'text-gray-500 hover:text-gray-900'
                   )}
                   title="Wide View"
@@ -244,16 +244,16 @@ export default function Overview() {
               : 'h-[460px]'
           )}>
             {loading ? (
-              <div className="absolute inset-0 bg-gray-50 flex items-center justify-center">
+              <div className="absolute inset-0 bg-gray-100/50 flex items-center justify-center">
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-8 h-8 border-2 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
-                  <span className="text-[12px] text-gray-400">Loading square geospatial canvas…</span>
+                  <span className="text-[12px] text-gray-500 font-medium">Initializing radiometric tiles…</span>
                 </div>
               </div>
             ) : (
               <Suspense
                 fallback={
-                  <div className="absolute inset-0 bg-gray-50 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-gray-100/50 flex items-center justify-center">
                     <div className="w-8 h-8 border-2 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
                   </div>
                 }
@@ -289,9 +289,9 @@ export default function Overview() {
         <SystemStatus services={systemStatus} loading={loading} className="shadow-xs" />
       </div>
 
-      {/* Disclaimer */}
-      <p className="text-center text-[10px] text-gray-400 pb-2">
-        Demo environment • Satellite detections are indicative and require field verification
+      {/* Telemetry Status Footer */}
+      <p className="text-center text-[10px] text-gray-400 font-medium pb-2">
+        SIH26162 Satellite Operations Protocol • NASA FIRMS V2 / Sentinel-2 Copernicus Synchronized
       </p>
 
       {/* ── Fullscreen Map Modal Dialog ─────────────────── */}

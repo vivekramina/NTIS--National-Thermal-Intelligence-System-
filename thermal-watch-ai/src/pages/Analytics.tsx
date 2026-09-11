@@ -11,10 +11,10 @@ import type { Detection, DetectionActivityPoint } from '../types'
 function ChartTooltip({ active, payload, label }: { active?: boolean; payload?: Array<{ value: number; name?: string; fill?: string }>; label?: string }) {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-lg px-3 py-2 text-[12px]">
-      {label && <p className="text-gray-400 mb-1">{label}</p>}
+    <div className="glass-panel border border-white/80 rounded-xl shadow-xl px-3.5 py-2.5 text-[12px] animate-scale-in z-50">
+      {label && <p className="text-gray-500 font-bold text-[11px] uppercase tracking-wider mb-1">{label}</p>}
       {payload.map((p, i) => (
-        <p key={i} className="font-semibold text-gray-900">{p.name ? `${p.name}: ` : ''}{p.value}</p>
+        <p key={i} className="font-extrabold text-gray-900 text-[13px]">{p.name ? `${p.name}: ` : ''}{p.value}</p>
       ))}
     </div>
   )
@@ -80,29 +80,29 @@ export default function Analytics() {
   })
   const topFacilities = Object.values(facilityMap).sort((a, b) => b.count - a.count).slice(0, 5)
 
-  const Skeleton = () => <div className="h-full w-full bg-gray-100 rounded-lg animate-pulse" />
+  const Skeleton = () => <div className="h-full w-full bg-gray-200/50 rounded-xl animate-pulse" />
 
   return (
-    <div className="p-5 flex flex-col gap-5">
-      <div>
-        <h1 className="text-[18px] font-bold text-gray-900">Analytics</h1>
-        <p className="text-[12px] text-gray-400 mt-0.5">Detection trends and statistical analysis</p>
+    <div className="p-5 flex flex-col gap-5 animate-fade-in pb-12">
+      <div className="glass-panel p-4.5 rounded-2xl border border-white/80 shadow-xs">
+        <h1 className="text-[18px] font-extrabold text-gray-900">Radiometric Analytics & Intelligence</h1>
+        <p className="text-[12px] text-gray-400 mt-0.5">Statistical anomaly trends, satellite payload breakdowns, and industrial proximity correlations</p>
       </div>
 
       {/* Row 1: Risk distribution + 24h trend */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4.5">
         {/* Risk distribution bar */}
-        <div className="glass-card p-4">
-          <h2 className="text-[14px] font-semibold text-gray-900 mb-1">Detections by Risk Level</h2>
-          <p className="text-[11px] text-gray-400 mb-4">Current monitoring period</p>
+        <div className="glass-card p-4.5 border border-white/80">
+          <h2 className="text-[14px] font-bold text-gray-900 mb-0.5">Detections by Hazard Severity</h2>
+          <p className="text-[11px] text-gray-400 mb-4">Current monitoring operational cycle</p>
           {loading ? <div className="h-48"><Skeleton /></div> : (
-            <ResponsiveContainer width="100%" height={180}>
+            <ResponsiveContainer width="100%" height={190}>
               <BarChart data={riskData} margin={{ top: 4, right: 4, left: -16, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.04)" />
                 <XAxis dataKey="risk" tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
                 <Tooltip content={<ChartTooltip />} cursor={{ fill: 'rgba(0,0,0,0.03)' }} />
-                <Bar dataKey="count" radius={[4, 4, 0, 0]}>
+                <Bar dataKey="count" radius={[6, 6, 0, 0]}>
                   {riskData.map((entry, index) => <Cell key={index} fill={entry.fill} />)}
                 </Bar>
               </BarChart>
@@ -111,17 +111,17 @@ export default function Analytics() {
         </div>
 
         {/* 24h trend line */}
-        <div className="glass-card p-4">
-          <h2 className="text-[14px] font-semibold text-gray-900 mb-1">24-Hour Detection Trend</h2>
-          <p className="text-[11px] text-gray-400 mb-4">Hourly detection frequency</p>
+        <div className="glass-card p-4.5 border border-white/80">
+          <h2 className="text-[14px] font-bold text-gray-900 mb-0.5">24-Hour Telemetry Frequency</h2>
+          <p className="text-[11px] text-gray-400 mb-4">Hourly anomaly ingestion distribution</p>
           {loading ? <div className="h-48"><Skeleton /></div> : (
-            <ResponsiveContainer width="100%" height={180}>
+            <ResponsiveContainer width="100%" height={190}>
               <LineChart data={activity} margin={{ top: 4, right: 4, left: -16, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.04)" />
                 <XAxis dataKey="time" tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={false} tickLine={false} interval={1} />
                 <YAxis tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
                 <Tooltip content={<ChartTooltip />} cursor={{ stroke: 'rgba(0,0,0,0.05)' }} />
-                <Line type="monotone" dataKey="detections" stroke="#2563eb" strokeWidth={2} dot={false} activeDot={{ r: 4, fill: '#2563eb', strokeWidth: 0 }} />
+                <Line type="monotone" dataKey="detections" stroke="#2563eb" strokeWidth={2.5} dot={false} activeDot={{ r: 5, fill: '#2563eb', strokeWidth: 2, stroke: '#fff' }} />
               </LineChart>
             </ResponsiveContainer>
           )}
@@ -129,19 +129,19 @@ export default function Analytics() {
       </div>
 
       {/* Row 2: Avg FRP + Source distribution */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4.5">
         {/* Avg FRP by risk */}
-        <div className="glass-card p-4">
-          <h2 className="text-[14px] font-semibold text-gray-900 mb-1">Average FRP by Risk Level</h2>
-          <p className="text-[11px] text-gray-400 mb-4">Fire Radiative Power (MW)</p>
+        <div className="glass-card p-4.5 border border-white/80">
+          <h2 className="text-[14px] font-bold text-gray-900 mb-0.5">Mean Radiative Power (FRP)</h2>
+          <p className="text-[11px] text-gray-400 mb-4">Calculated in Megawatts (MW) by classification</p>
           {loading ? <div className="h-48"><Skeleton /></div> : (
-            <ResponsiveContainer width="100%" height={180}>
+            <ResponsiveContainer width="100%" height={190}>
               <BarChart data={frpData} layout="vertical" margin={{ top: 4, right: 16, left: 24, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" horizontal={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.04)" horizontal={false} />
                 <XAxis type="number" tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={false} tickLine={false} />
                 <YAxis type="category" dataKey="risk" tick={{ fill: '#9ca3af', fontSize: 11 }} axisLine={false} tickLine={false} width={60} />
                 <Tooltip content={<ChartTooltip />} cursor={{ fill: 'rgba(0,0,0,0.03)' }} />
-                <Bar dataKey="avgFRP" radius={[0, 4, 4, 0]} name="Avg FRP (MW)">
+                <Bar dataKey="avgFRP" radius={[0, 6, 6, 0]} name="Avg FRP (MW)">
                   {frpData.map((entry, i) => <Cell key={i} fill={entry.fill} />)}
                 </Bar>
               </BarChart>
@@ -150,17 +150,17 @@ export default function Analytics() {
         </div>
 
         {/* Source distribution pie */}
-        <div className="glass-card p-4">
-          <h2 className="text-[14px] font-semibold text-gray-900 mb-1">Detections by Source</h2>
-          <p className="text-[11px] text-gray-400 mb-4">Satellite instrument breakdown</p>
+        <div className="glass-card p-4.5 border border-white/80">
+          <h2 className="text-[14px] font-bold text-gray-900 mb-0.5">Satellite Payload Stream Share</h2>
+          <p className="text-[11px] text-gray-400 mb-4">Instrument sensor ingestion breakdown</p>
           {loading ? <div className="h-48"><Skeleton /></div> : (
-            <ResponsiveContainer width="100%" height={180}>
+            <ResponsiveContainer width="100%" height={190}>
               <PieChart>
-                <Pie data={sourceData} cx="50%" cy="50%" innerRadius={50} outerRadius={75} paddingAngle={3} dataKey="value" nameKey="name">
+                <Pie data={sourceData} cx="50%" cy="50%" innerRadius={50} outerRadius={75} paddingAngle={4} dataKey="value" nameKey="name">
                   {sourceData.map((_, i) => <Cell key={i} fill={SOURCE_COLORS[i % SOURCE_COLORS.length]} />)}
                 </Pie>
                 <Tooltip content={<ChartTooltip />} />
-                <Legend iconType="circle" iconSize={8} formatter={(val) => <span style={{ fontSize: 11, color: '#6b7280' }}>{val}</span>} />
+                <Legend iconType="circle" iconSize={8} formatter={(val) => <span style={{ fontSize: 11, fontWeight: 600, color: '#4b5563' }}>{val}</span>} />
               </PieChart>
             </ResponsiveContainer>
           )}
@@ -168,31 +168,31 @@ export default function Analytics() {
       </div>
 
       {/* Row 3: Top facilities table */}
-      <div className="glass-card overflow-hidden">
-        <div className="px-4 py-3 border-b border-black/[0.06]">
-          <h2 className="text-[14px] font-semibold text-gray-900">Top Facilities by Detection Count</h2>
-          <p className="text-[11px] text-gray-400 mt-0.5">Industrial facilities with highest nearby anomaly activity</p>
+      <div className="glass-card overflow-hidden border border-white/80">
+        <div className="px-4.5 py-3.5 border-b border-black/[0.06] bg-white/40 backdrop-blur-md">
+          <h2 className="text-[14px] font-bold text-gray-900">High-Proximity Industrial Facilities</h2>
+          <p className="text-[11px] text-gray-400 mt-0.5">Industrial complexes with highest concentration of nearby thermal events</p>
         </div>
         {loading ? (
-          <div className="p-4 space-y-3">{[...Array(4)].map((_, i) => <div key={i} className="h-10 bg-gray-100 rounded animate-pulse" />)}</div>
+          <div className="p-4 space-y-3">{[...Array(4)].map((_, i) => <div key={i} className="h-10 bg-gray-200/50 rounded-xl animate-pulse" />)}</div>
         ) : (
           <table className="w-full text-[13px]">
             <thead>
-              <tr className="border-b border-black/[0.06] bg-gray-50/50">
-                <th className="text-left px-4 py-2.5 text-gray-400 font-medium text-[11px] uppercase tracking-wider">Facility</th>
-                <th className="text-left px-4 py-2.5 text-gray-400 font-medium text-[11px] uppercase tracking-wider">Detections</th>
-                <th className="text-left px-4 py-2.5 text-gray-400 font-medium text-[11px] uppercase tracking-wider">Frequency</th>
+              <tr className="border-b border-black/[0.06] bg-white/30">
+                <th className="text-left px-4.5 py-3 text-gray-500 font-bold text-[11px] uppercase tracking-wider">Industrial Complex</th>
+                <th className="text-left px-4.5 py-3 text-gray-500 font-bold text-[11px] uppercase tracking-wider">Anomalies Detected</th>
+                <th className="text-left px-4.5 py-3 text-gray-500 font-bold text-[11px] uppercase tracking-wider">Cluster Density</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-black/[0.04]">
               {topFacilities.map((fac, i) => (
-                <tr key={i} className="hover:bg-gray-50/60">
-                  <td className="px-4 py-3 font-medium text-gray-800">{fac.name}</td>
-                  <td className="px-4 py-3 font-bold text-gray-900">{fac.count}</td>
-                  <td className="px-4 py-3">
+                <tr key={i} className="hover:bg-white/60 transition-colors">
+                  <td className="px-4.5 py-3.5 font-bold text-gray-800">{fac.name}</td>
+                  <td className="px-4.5 py-3.5 font-extrabold text-gray-900">{fac.count}</td>
+                  <td className="px-4.5 py-3.5">
                     <div className="flex items-center gap-2">
-                      <div className="w-24 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${(fac.count / (topFacilities[0]?.count ?? 1)) * 100}%` }} />
+                      <div className="w-28 h-1.5 bg-black/[0.06] rounded-full overflow-hidden">
+                        <div className="h-full bg-blue-600 rounded-full" style={{ width: `${(fac.count / (topFacilities[0]?.count ?? 1)) * 100}%` }} />
                       </div>
                     </div>
                   </td>
@@ -205,3 +205,4 @@ export default function Analytics() {
     </div>
   )
 }
+

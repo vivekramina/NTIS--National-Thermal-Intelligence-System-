@@ -26,37 +26,40 @@ export default function MetricCard({
     <div
       onClick={onClick}
       className={cn(
-        'glass-card p-4.5 flex flex-col gap-3.5 transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md cursor-default select-none border border-black/[0.06] hover:border-black/[0.12]',
+        'glass-card p-4.5 flex flex-col justify-between gap-3 transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md cursor-default select-none border border-white/80 hover:border-blue-400/40 group relative overflow-hidden',
         onClick && 'cursor-pointer active:scale-98',
         className
       )}
     >
+      {/* Top subtle ambient light ray */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent opacity-80" />
+
       {/* Top Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div
             className={cn(
-              'w-8.5 h-8.5 rounded-xl flex items-center justify-center shrink-0 shadow-2xs transition-transform duration-200 group-hover:scale-105',
+              'w-8.5 h-8.5 rounded-xl flex items-center justify-center shrink-0 shadow-2xs transition-transform duration-200 group-hover:scale-105 border border-black/[0.04]',
               iconClassName ?? 'bg-blue-50 text-blue-600'
             )}
           >
             <Icon size={17} />
           </div>
-          <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+          <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider group-hover:text-gray-700 transition-colors">
             {label}
           </span>
         </div>
       </div>
 
       {/* Numerical metric & delta */}
-      <div className="flex items-baseline justify-between gap-2 mt-0.5">
+      <div className="flex items-baseline justify-between gap-2 mt-1">
         <span className="text-[28px] font-extrabold text-gray-900 leading-none tabular-nums tracking-tight">
           {value}
         </span>
         {delta && (
           <span
             className={cn(
-              'text-[11px] font-semibold mb-0.5 shrink-0 px-2 py-0.5 rounded-md bg-gray-50 border border-gray-100',
+              'text-[11px] font-semibold shrink-0 px-2 py-0.5 rounded-md bg-white/80 border border-black/[0.06] shadow-2xs',
               deltaClassName ?? 'text-gray-500'
             )}
           >
@@ -67,3 +70,4 @@ export default function MetricCard({
     </div>
   )
 }
+

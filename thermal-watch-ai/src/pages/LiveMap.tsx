@@ -46,21 +46,21 @@ export default function LiveMap() {
   return (
     <div className="flex h-full min-h-0 animate-fade-in relative">
       {/* ── Sidebar panel ─────────────────────────────────── */}
-      <div className="w-[300px] shrink-0 flex flex-col border-r border-black/[0.07] bg-white overflow-hidden shadow-xs z-10">
+      <div className="w-[310px] shrink-0 flex flex-col border-r border-white/60 bg-white/80 backdrop-blur-2xl overflow-hidden shadow-xs z-10">
         {/* Filters */}
-        <div className="p-4 border-b border-black/[0.06] bg-gray-50/40">
+        <div className="p-4 border-b border-black/[0.05] bg-white/40 backdrop-blur-md">
           <div className="flex items-center justify-between mb-2.5">
             <div className="flex items-center gap-1.5">
               <Filter size={14} className="text-blue-600" />
-              <span className="text-[13px] font-bold text-gray-900">Map Filter</span>
+              <span className="text-[13px] font-bold text-gray-900">Geospatial Filters</span>
             </div>
-            <span className="text-[11px] font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+            <span className="text-[11px] font-bold text-gray-600 bg-black/[0.04] px-2 py-0.5 rounded-full border border-black/[0.04]">
               {filtered.length} visible
             </span>
           </div>
 
           {/* Risk filter */}
-          <p className="text-[10px] text-gray-400 uppercase tracking-wider font-bold mb-1.5">Risk Rating</p>
+          <p className="text-[10px] text-gray-400 uppercase tracking-wider font-bold mb-1.5">Hazard Severity</p>
           <div className="flex flex-wrap gap-1">
             {RISK_FILTERS.map((f) => (
               <button
@@ -73,7 +73,7 @@ export default function LiveMap() {
                   'text-[11px] font-bold px-2.5 py-1 rounded-lg border transition-all duration-150 shadow-2xs',
                   riskFilter === f.value
                     ? 'bg-blue-600 text-white border-blue-600 shadow-blue-500/10'
-                    : 'bg-white text-gray-600 border-gray-200/80 hover:bg-gray-50'
+                    : 'bg-white/90 text-gray-600 border-black/[0.06] hover:bg-white hover:text-gray-900'
                 )}
               >
                 {f.label}
@@ -85,7 +85,7 @@ export default function LiveMap() {
           <div className="flex items-center justify-between mt-3.5 pt-3 border-t border-black/[0.05]">
             <div className="flex items-center gap-2">
               <Layers size={14} className="text-gray-500" />
-              <span className="text-[12px] font-semibold text-gray-700">OSM Facilities</span>
+              <span className="text-[12px] font-bold text-gray-700">OSM Industrial Layer</span>
             </div>
             <ToggleSwitch
               size="sm"
@@ -100,7 +100,7 @@ export default function LiveMap() {
         <div className="flex-1 overflow-y-auto divide-y divide-black/[0.04]">
           {loading ? (
             <div className="space-y-2 p-3">
-              {[...Array(6)].map((_, i) => <div key={i} className="h-16 bg-gray-100 rounded-xl animate-pulse" />)}
+              {[...Array(6)].map((_, i) => <div key={i} className="h-16 bg-gray-200/50 rounded-xl animate-pulse" />)}
             </div>
           ) : (
             filtered.map((det) => {
@@ -111,18 +111,18 @@ export default function LiveMap() {
                   key={det.id}
                   onClick={() => handleSelectDetection(det)}
                   className={cn(
-                    'p-3.5 hover:bg-blue-50/40 transition-all duration-150 cursor-pointer group relative',
-                    isSelected && 'bg-blue-50/80 border-l-3 border-blue-600'
+                    'p-3.5 hover:bg-white/80 transition-all duration-150 cursor-pointer group relative',
+                    isSelected && 'bg-blue-50/70 border-l-3 border-blue-600 shadow-2xs'
                   )}
                 >
                   <div className="flex items-start gap-2.5">
-                    <span className={cn('w-2 h-2 rounded-full mt-1.5 shrink-0', getRiskDotColor(det.riskLevel))} />
+                    <span className={cn('w-2 h-2 rounded-full mt-1.5 shrink-0 shadow-2xs', getRiskDotColor(det.riskLevel))} />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-1">
                         <span className={cn('text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider', getRiskBadgeClasses(det.riskLevel))}>
                           {det.riskLevel}
                         </span>
-                        <span className="text-[11px] font-bold text-gray-700">{det.frp} MW</span>
+                        <span className="text-[11px] font-extrabold text-gray-800">{det.frp} MW</span>
                       </div>
                       <p className="text-[12px] font-bold text-gray-900 mt-1 truncate group-hover:text-blue-600 transition-colors">
                         {det.id}
@@ -132,7 +132,7 @@ export default function LiveMap() {
                       )}
                       <div className="flex items-center justify-between mt-1 text-[10px] text-gray-400">
                         <span>{formatRelativeTime(det.detectedAt)}</span>
-                        <span className="font-semibold text-purple-600">{det.source}</span>
+                        <span className="font-bold text-purple-600">{det.source}</span>
                       </div>
                     </div>
                   </div>
@@ -146,14 +146,14 @@ export default function LiveMap() {
       {/* ── Map Canvas ────────────────────────────────────── */}
       <div className="flex-1 min-w-0 relative">
         {loading ? (
-          <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+          <div className="absolute inset-0 bg-gray-100/60 flex items-center justify-center">
             <div className="flex flex-col items-center gap-3">
               <div className="w-8 h-8 border-2 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
-              <span className="text-[13px] text-gray-500 font-medium">Initializing geospatial canvas…</span>
+              <span className="text-[13px] text-gray-500 font-medium">Initializing geospatial telemetry canvas…</span>
             </div>
           </div>
         ) : (
-          <Suspense fallback={<div className="absolute inset-0 bg-gray-100 flex items-center justify-center"><div className="w-8 h-8 border-2 border-blue-200 border-t-blue-500 rounded-full animate-spin" /></div>}>
+          <Suspense fallback={<div className="absolute inset-0 bg-gray-100/60 flex items-center justify-center"><div className="w-8 h-8 border-2 border-blue-200 border-t-blue-500 rounded-full animate-spin" /></div>}>
             <ThermalMap
               detections={filtered}
               facilities={showFacilities ? facilities : []}
@@ -165,21 +165,21 @@ export default function LiveMap() {
           </Suspense>
         )}
 
-        {/* Floating Stat Pill */}
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] bg-white/95 backdrop-blur-md border border-black/[0.08] rounded-full shadow-lg px-4 py-1.5 flex items-center gap-3 text-[12px] animate-slide-down">
-          <span className="flex items-center gap-1.5 text-gray-700 font-semibold">
+        {/* Floating Stat Pill with Translucent Glass */}
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] glass-panel rounded-full shadow-lg px-4.5 py-1.5 flex items-center gap-3 text-[12px] animate-slide-down border border-white/80">
+          <span className="flex items-center gap-1.5 text-gray-800 font-bold">
             <Flame size={14} className="text-orange-500" />
-            <span>{filtered.length} anomalies visible</span>
+            <span>{filtered.length} active anomalies</span>
           </span>
           <span className="text-gray-300">|</span>
-          <span className="text-gray-500 font-medium">
-            {showFacilities ? `${facilities.length} industrial sites` : 'Facilities hidden'}
+          <span className="text-gray-600 font-medium">
+            {showFacilities ? `${facilities.length} industrial sites indexed` : 'Facilities hidden'}
           </span>
         </div>
 
         {/* Selected Anomaly Card Preview */}
         {selectedDetection && (
-          <div className="absolute bottom-6 right-6 z-[1000] w-80 bg-white/95 backdrop-blur-md border border-gray-200 rounded-2xl shadow-2xl p-4 animate-slide-up">
+          <div className="absolute bottom-6 right-6 z-[1000] w-84 glass-panel rounded-2xl shadow-2xl p-4.5 animate-slide-up border border-white/90">
             <div className="flex items-start justify-between mb-2">
               <div>
                 <span className={cn('text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider', getRiskBadgeClasses(selectedDetection.riskLevel))}>
@@ -189,24 +189,24 @@ export default function LiveMap() {
               </div>
               <button
                 onClick={() => setSelectedDetection(null)}
-                className="text-gray-400 hover:text-gray-600 text-[12px] font-bold"
+                className="text-gray-400 hover:text-gray-700 text-[12px] font-bold p-1 hover:bg-white/60 rounded-lg transition-colors"
               >
                 ✕
               </button>
             </div>
             <p className="text-[12px] text-gray-600 mb-3">
-              FRP: <span className="font-bold text-gray-900">{selectedDetection.frp} MW</span> • Confidence: <span className="font-bold text-gray-900">{selectedDetection.confidence}%</span>
+              Radiative Power: <span className="font-extrabold text-gray-900">{selectedDetection.frp} MW</span> • Reliability: <span className="font-extrabold text-gray-900">{selectedDetection.confidence}%</span>
             </p>
             {selectedDetection.nearbyFacility && (
-              <p className="text-[11px] text-gray-500 bg-gray-50 p-2 rounded-lg mb-3">
-                🏢 {selectedDetection.nearbyFacility.name} ({selectedDetection.nearbyFacility.distanceMeters}m)
+              <p className="text-[11px] text-gray-700 bg-white/70 border border-black/[0.04] p-2.5 rounded-xl mb-3 font-medium">
+                🏢 {selectedDetection.nearbyFacility.name} ({selectedDetection.nearbyFacility.distanceMeters}m radius)
               </p>
             )}
             <button
               onClick={() => navigate(`/detections/${selectedDetection.id}`)}
-              className="w-full flex items-center justify-center gap-1.5 text-[12px] font-bold text-blue-600 hover:text-white bg-blue-50 hover:bg-blue-600 rounded-xl py-2 transition-all shadow-2xs"
+              className="w-full flex items-center justify-center gap-1.5 text-[12px] font-bold text-blue-600 hover:text-white bg-blue-50/80 hover:bg-blue-600 rounded-xl py-2 transition-all shadow-2xs border border-blue-200/60 hover:border-blue-600"
             >
-              Open Full Analysis <ChevronRight size={14} />
+              Open Incident Telemetry <ChevronRight size={14} />
             </button>
           </div>
         )}
@@ -214,3 +214,4 @@ export default function LiveMap() {
     </div>
   )
 }
+

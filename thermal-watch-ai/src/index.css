@@ -1,44 +1,34 @@
 @import "tailwindcss";
 
 /* ============================================================
-   THERMAL WATCH AI — Global CSS (Light Mode & Animations)
+   THERMAL WATCH — Enterprise Telemetry & Geospatial Design System
    ============================================================ */
 
 :root {
-  /* Base palette — light */
-  --color-bg-base: #f0f2f5;
-  --color-bg-surface: #ffffff;
-  --color-bg-elevated: #f8fafc;
-  --color-bg-hover: #f1f5f9;
-  --color-border: rgba(0, 0, 0, 0.07);
-  --color-border-subtle: rgba(0, 0, 0, 0.04);
+  /* Base palette — luminous enterprise slate */
+  --color-bg-base: #f1f4f8;
+  --color-bg-surface: rgba(255, 255, 255, 0.78);
+  --color-bg-elevated: rgba(255, 255, 255, 0.92);
+  --color-border: rgba(226, 232, 240, 0.8);
+  --color-border-glass: rgba(255, 255, 255, 0.85);
 
-  /* Text */
-  --color-text-primary: #111827;
-  --color-text-secondary: #6b7280;
-  --color-text-muted: #9ca3af;
+  /* Typography */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
 
-  /* Accent */
+  /* Brand Accents */
   --color-accent: #2563eb;
   --color-accent-hover: #1d4ed8;
 
-  /* Risk semantics */
-  --color-critical: #dc2626;
-  --color-high: #ea580c;
+  /* Semantic Thermal & Hazard Spectrum */
+  --color-critical: #e11d48;
+  --color-high: #f97316;
   --color-medium: #d97706;
-  --color-low: #16a34a;
+  --color-low: #059669;
 
-  /* System status */
-  --color-status-ok: #16a34a;
-  --color-status-degraded: #d97706;
-  --color-status-error: #dc2626;
-
-  /* Map overlay */
-  --glass-bg: rgba(255, 255, 255, 0.94);
-  --glass-border: rgba(0, 0, 0, 0.08);
-
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 14px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13.5px;
   line-height: 1.5;
   font-weight: 400;
 
@@ -65,121 +55,142 @@ body,
   margin: 0;
   padding: 0;
   overflow: hidden;
+  background: 
+    radial-gradient(circle at 15% 15%, rgba(37, 99, 235, 0.035) 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(249, 115, 22, 0.025) 0%, transparent 45%),
+    #f1f4f8;
 }
 
 /* ============================================================
-   Scrollbar styling
+   Frosted Glass Components (Transparent Effect)
+   ============================================================ */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    0 4px 20px -2px rgba(15, 23, 42, 0.04),
+    0 1px 3px 0 rgba(15, 23, 42, 0.02);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  box-shadow: 
+    0 4px 24px -2px rgba(15, 23, 42, 0.04),
+    0 1px 2px 0 rgba(15, 23, 42, 0.02);
+  position: relative;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.86);
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: 
+    0 10px 30px -4px rgba(15, 23, 42, 0.07),
+    0 2px 6px -1px rgba(15, 23, 42, 0.03);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.glass-dropdown {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 16px 40px -4px rgba(15, 23, 42, 0.12);
+}
+
+/* ============================================================
+   Scrollbars
    ============================================================ */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(148, 163, 184, 0.3);
   border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.22);
+  background: rgba(100, 116, 139, 0.5);
 }
 
 /* ============================================================
-   Leaflet overrides — light theme
+   Leaflet Overrides
    ============================================================ */
 .leaflet-container {
-  background: #e8edf2 !important;
-  font-family: 'Inter', system-ui, sans-serif !important;
+  background: #e8edf3 !important;
+  font-family: 'Inter', -apple-system, sans-serif !important;
 }
 
 .leaflet-popup-content-wrapper {
-  background: rgba(255, 255, 255, 0.98) !important;
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
-  border-radius: 14px !important;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.16) !important;
-  color: #111827 !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.14) !important;
+  color: #0f172a !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
   padding: 4px !important;
 }
 
 .leaflet-popup-tip {
-  background: rgba(255, 255, 255, 0.98) !important;
-}
-
-.leaflet-popup-close-button {
-  color: #9ca3af !important;
-  font-size: 18px !important;
-  padding: 8px 10px !important;
-}
-
-.leaflet-popup-close-button:hover {
-  color: #111827 !important;
+  background: rgba(255, 255, 255, 0.95) !important;
 }
 
 .leaflet-control-zoom {
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
-  border-radius: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  border-radius: 12px !important;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08) !important;
 }
 
 .leaflet-control-zoom a {
-  background: rgba(255, 255, 255, 0.95) !important;
-  color: #4b5563 !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  color: #334155 !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
   width: 32px !important;
   height: 32px !important;
   line-height: 32px !important;
-  font-size: 14px !important;
 }
 
 .leaflet-control-zoom a:hover {
-  background: #f1f5f9 !important;
-  color: #111827 !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
 }
 
 .leaflet-attribution-flag { display: none !important; }
 
 .leaflet-control-attribution {
-  background: rgba(255, 255, 255, 0.85) !important;
-  color: #9ca3af !important;
-  font-size: 10px !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(8px) !important;
+  color: #94a3b8 !important;
+  font-size: 9.5px !important;
   border-radius: 6px 0 0 0;
   padding: 2px 6px !important;
 }
 
-.leaflet-control-attribution a { color: #6b7280 !important; }
-
 /* ============================================================
-   Glass card base — light
+   Fluid Micro-Animations
    ============================================================ */
-.glass-card {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 0, 0, 0.07);
-  border-radius: 14px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.02);
-}
-
-/* ============================================================
-   Soft Animations
-   ============================================================ */
-@keyframes pulse-ring {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(2.2); opacity: 0; }
-}
-
 @keyframes fade-in {
   from { opacity: 0; }
   to   { opacity: 1; }
-}
-
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slide-down {
@@ -188,46 +199,44 @@ body,
 }
 
 @keyframes slide-up {
-  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes scale-in {
-  from { opacity: 0; transform: scale(0.92); }
+  from { opacity: 0; transform: scale(0.94); }
   to   { opacity: 1; transform: scale(1); }
 }
 
-.animate-fade-in    { animation: fade-in 0.2s ease-out both; }
-.animate-fade-in-up { animation: fade-in-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.animate-slide-down { animation: slide-down 0.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.animate-slide-up   { animation: slide-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.animate-scale-in   { animation: scale-in 0.18s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.65; transform: scale(1.08); }
+}
 
-/* ============================================================
-   Focus styles
-   ============================================================ */
+.animate-fade-in    { animation: fade-in 0.22s ease-out both; }
+.animate-slide-down { animation: slide-down 0.22s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-slide-up   { animation: slide-up 0.24s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-scale-in   { animation: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Focus styles */
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
-/* ============================================================
-   Transition utilities
-   ============================================================ */
+/* Transitions */
 .transition-sidebar {
-  transition: width 0.22s cubic-bezier(0.4, 0, 0.2, 1), transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ============================================================
-   Recharts overrides — light
-   ============================================================ */
+/* Recharts Overrides */
 .recharts-cartesian-grid-horizontal line,
 .recharts-cartesian-grid-vertical line {
-  stroke: rgba(0, 0, 0, 0.05) !important;
+  stroke: rgba(226, 232, 240, 0.7) !important;
 }
 .recharts-text {
-  fill: #9ca3af !important;
+  fill: #94a3b8 !important;
   font-family: 'Inter', system-ui, sans-serif !important;
   font-size: 11px !important;
 }
