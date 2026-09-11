@@ -80,13 +80,13 @@ def create_app(test_config=None) -> Flask:
 
             if fac_count == 0:
                 logger.info('Empty facility database detected. Seeding industrial facilities...')
-                OsmService.seed_facilities_if_empty()
+                OsmService.seed_initial_facilities()
 
             if det_count == 0:
                 logger.info('Initializing thermal telemetry pipeline on startup...')
                 TelemetryPipeline.run_pipeline()
 
         except Exception as e:
-            logger.warning(f'Startup initial seeding check warning: {e}')
+            logger.error(f'Startup initial seeding check failed: {e}', exc_info=True)
 
     return app

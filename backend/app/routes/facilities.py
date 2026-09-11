@@ -25,6 +25,16 @@ def get_facilities():
         offset = request.args.get('offset', default=0, type=int)
 
         total = query.count()
+        if total == 0 and not fac_type and not hazard:
+            logger.info('Database empty on /facilities request. Auto-seeding OSM facilities...')
+            try:
+                from ..services.osm_service import OsmService
+                OsmService.seed_initial_facilities()
+                query = session.query(IndustrialFacility)
+                total = query.count()
+            except Exception as fe:
+                logger.error(f'Auto-seeding facilities failed: {fe}')
+
         facilities = query.offset(offset).limit(limit).all()
 
         return jsonify({

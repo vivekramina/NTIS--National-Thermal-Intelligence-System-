@@ -19,6 +19,19 @@ def get_analytics():
 
         total_detections = len(detections)
         if total_detections == 0:
+            logger.info('Analytics: 0 detections found. Auto-running pipeline...')
+            try:
+                from ..services.pipeline import TelemetryPipeline
+                TelemetryPipeline.run_pipeline()
+                detections = session.query(FireDetection).all()
+                persistent_sources = session.query(PersistentSource).all()
+                facilities = session.query(IndustrialFacility).all()
+                alerts = session.query(Alert).all()
+                total_detections = len(detections)
+            except Exception as e:
+                logger.error(f'Analytics auto-seed failed: {e}')
+
+        if total_detections == 0:
             return jsonify({
                 'totalDetections': 0,
                 'persistentSourcesCount': len(persistent_sources),

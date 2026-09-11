@@ -46,6 +46,14 @@ def get_fires():
             query = query.filter(FireDetection.acquisition_date <= end_date)
 
         total_count = query.count()
+        if total_count == 0 and not any([classification, risk_level, source, min_frp, is_persistent, start_date, end_date]):
+            logger.info('Database empty on /fires request. Automatically executing telemetry pipeline...')
+            try:
+                TelemetryPipeline.run_pipeline()
+                query = session.query(FireDetection)
+                total_count = query.count()
+            except Exception as pe:
+                logger.error(f'Auto-seeding pipeline on /fires failed: {pe}')
 
         # Sorting & Pagination
         query = query.order_by(desc(FireDetection.detected_at))

@@ -96,6 +96,13 @@ class OsmService:
         }
 
     @classmethod
+    def seed_facilities_if_empty(cls):
+        """
+        Alias for seed_initial_facilities.
+        """
+        return cls.seed_initial_facilities()
+
+    @classmethod
     def seed_initial_facilities(cls):
         """
         Populate the database with verified industrial facilities if empty.

@@ -9,10 +9,11 @@ from ..ml.training import train_anomaly_model
 admin_bp = Blueprint('admin', __name__)
 logger = logging.getLogger('thermal_watch.api.admin')
 
-@admin_bp.route('/admin/pipeline/run', methods=['POST'])
+@admin_bp.route('/admin/pipeline/run', methods=['GET', 'POST'])
+@admin_bp.route('/admin/seed', methods=['GET', 'POST'])
 def run_pipeline():
     try:
-        body = request.get_json(silent=True) or {}
+        body = request.get_json(silent=True) or {} if request.method == 'POST' else {}
         source = body.get('source', 'VIIRS_NOAA21_NRT')
         bbox = body.get('bbox')
         days = body.get('days', 2)
