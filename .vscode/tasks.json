@@ -1,0 +1,46 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start All (Backend + Frontend)",
+      "dependsOn": [
+        "Start Backend (Flask)",
+        "Start Frontend (Vite)"
+      ],
+      "dependsOrder": "parallel",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Start Backend (Flask)",
+      "type": "shell",
+      "command": "python run.py",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "ntis-servers"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Frontend (Vite)",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": {
+        "cwd": "${workspaceFolder}/thermal-watch-ai"
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "ntis-servers"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}
