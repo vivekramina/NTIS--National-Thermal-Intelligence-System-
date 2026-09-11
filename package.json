@@ -1,0 +1,1 @@
+{"name":"ntis-national-thermal-intelligence-system","version":"1.0.0","private":true,"scripts":{"build":"cd thermal-watch-ai && npm install && npm run build","dev":"cd thermal-watch-ai && npm run dev"}}

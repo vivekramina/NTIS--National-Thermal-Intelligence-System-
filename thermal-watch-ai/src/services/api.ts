@@ -26,8 +26,26 @@ import {
   MOCK_PERSISTENT_SOURCES,
 } from '../data/mockData';
 
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api').replace(/\/$/, '');
-const REQUEST_TIMEOUT_MS = 3500;
+function getApiBaseUrl(): string {
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+  if (envUrl && typeof envUrl === 'string' && envUrl.trim()) {
+    const isLocal = typeof window !== 'undefined' && 
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    if (isLocal || !envUrl.includes('localhost')) {
+      return envUrl.trim().replace(/\/$/, '');
+    }
+  }
+
+  // When hosted on Vercel or any cloud domain, automatically connect to cloud Render backend
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    return 'https://ntis-backend-ynam.onrender.com/api';
+  }
+
+  return 'http://localhost:5000/api';
+}
+
+const API_BASE_URL = getApiBaseUrl();
+const REQUEST_TIMEOUT_MS = 15000;
 
 /**
  * Fetch wrapper with timeout and fallback

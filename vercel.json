@@ -1,0 +1,1 @@
+{"$schema":"https://openapi.vercel.sh/vercel.json","framework":"vite","buildCommand":"cd thermal-watch-ai && npm install && npm run build","outputDirectory":"thermal-watch-ai/dist","rewrites":[{"source":"/api/(.*)","destination":"https://ntis-backend-ynam.onrender.com/api/$1"},{"source":"/(.*)","destination":"/index.html"}]}
