@@ -42,8 +42,8 @@ export default function LiveMap() {
   const [showFacilities, setShowFacilities] = useState(true)
   const [selectedDetection, setSelectedDetection] = useState<Detection | null>(null)
   const [selectedFacility, setSelectedFacility] = useState<Facility | null>(null)
-  const [mapCenter, setMapCenter] = useState<[number, number]>([19.1, 72.9])
-  const [mapZoom, setMapZoom] = useState<number>(11)
+  const [mapCenter, setMapCenter] = useState<[number, number]>([22.5, 80.0])
+  const [mapZoom, setMapZoom] = useState<number>(5)
   const navigate = useNavigate()
 
   useEffect(() => {

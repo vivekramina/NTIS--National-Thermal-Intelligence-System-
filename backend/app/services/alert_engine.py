@@ -1,4 +1,5 @@
 import logging
+import uuid
 from datetime import datetime, timezone
 from typing import List, Optional
 from ..database import get_db_session
@@ -27,26 +28,38 @@ class AlertEngine:
             message = ''
             severity = detection.risk_level or 'MODERATE'
 
-            # Rule 1: Critical risk
-            if detection.risk_level == 'CRITICAL':
+            # Rule 1: Critical risk or extreme FRP (>= 55 MW) or risk score >= 70
+            if detection.risk_level == 'CRITICAL' or (detection.frp and detection.frp >= 55.0) or (detection.risk_score and detection.risk_score >= 70.0):
                 should_alert = True
+                severity = 'CRITICAL'
                 title = f'CRITICAL: Severe Anomaly ({detection.frp} MW)'
-                message = f'Immediate response advisory. Radiative thermal anomaly with FRP of {detection.frp} MW detected near {facility_name or "industrial sector"}.'
+                message = f'Immediate response advisory. Radiative thermal anomaly with FRP of {detection.frp} MW detected near {facility_name or detection.location or "industrial sector"}.'
 
-            # Rule 2: High risk within close industrial proximity (< 500m)
-            elif detection.risk_level == 'HIGH' and detection.distance_to_facility_m is not None and detection.distance_to_facility_m <= 500:
+            # Rule 2: High risk or significant industrial proximity (<= 5000m with FRP >= 20 MW) or FRP >= 35 MW
+            elif detection.risk_level == 'HIGH' or (detection.distance_to_facility_m is not None and detection.distance_to_facility_m <= 5000 and (detection.frp or 0) >= 20.0) or (detection.frp and detection.frp >= 35.0):
                 should_alert = True
-                title = f'HIGH HAZARD: {facility_name or "Industrial Facility"} Perimeter Incident'
-                message = f'Thermal hotspot detected {int(detection.distance_to_facility_m)}m from {facility_name or "facility"}. FRP: {detection.frp} MW.'
+                severity = 'HIGH'
+                fac_text = facility_name or (detection.location or "Industrial Corridor")
+                dist_info = f" ({int(detection.distance_to_facility_m)}m from {facility_name})" if (detection.distance_to_facility_m is not None and facility_name) else ""
+                title = f'HIGH HAZARD: {fac_text} Thermal Anomaly'
+                message = f'Elevated thermal hotspot detected{dist_info}. FRP: {detection.frp} MW. Risk score: {detection.risk_score}.'
 
-            # Rule 3: Confirmed persistent emitter (>= 3 days)
-            elif detection.is_persistent or detection.persistence_days >= 3:
+            # Rule 3: Confirmed multi-temporal emitter (>= 2 days)
+            elif detection.is_persistent or (detection.persistence_days and detection.persistence_days >= 2):
                 should_alert = True
+                severity = 'HIGH' if (detection.persistence_days and detection.persistence_days >= 3) else 'MODERATE'
                 title = f'PERSISTENT EMITTER: Recurrence Alarm ({detection.persistence_days} days)'
                 message = f'Multi-temporal anomaly confirmed across {detection.persistence_days} observation passes near {detection.location or "sector"}.'
 
+            # Rule 4: Radiative thermal advisory (FRP >= 20 MW or risk score >= 40)
+            elif (detection.frp and detection.frp >= 20.0) or (detection.risk_score and detection.risk_score >= 40.0):
+                should_alert = True
+                severity = 'MODERATE'
+                title = f'THERMAL ADVISORY: Heat Radiance ({detection.frp} MW)'
+                message = f'Radiative thermal hotspot registered in {detection.location or "sector"} with {int(detection.confidence)}% sensor confidence.'
+
             if should_alert:
-                alert_id = f'ALT-{datetime.now(timezone.utc).strftime("%Y%m%d")}-{detection.id[-6:]}'
+                alert_id = f'ALT-{datetime.now(timezone.utc).strftime("%Y%m%d")}-{uuid.uuid4().hex[:8].upper()}'
                 alert = Alert(
                     id=alert_id,
                     detection_id=detection.id,

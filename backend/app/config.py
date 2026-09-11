@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 class Config:
-    FIRMS_MAP_KEY = os.getenv("FIRMS_MAP_KEY", "").strip()
+    FIRMS_MAP_KEY = os.getenv("FIRMS_MAP_KEY", "69836fdb99ed66d7c35fc8c140d7ba87").strip() or "69836fdb99ed66d7c35fc8c140d7ba87"
     DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/thermal_watch")
     FLASK_ENV = os.getenv("FLASK_ENV", "development")
     FLASK_DEBUG = os.getenv("FLASK_DEBUG", "false").lower() in ("true", "1", "yes")

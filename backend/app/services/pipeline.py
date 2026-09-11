@@ -123,6 +123,9 @@ class TelemetryPipeline:
                     'source': det.source,
                     'distanceToFacilityM': det.distance_to_facility_m,
                     'facilityName': nearest_fac.name if nearest_fac else None,
+                    'facilityType': nearest_fac.facility_type if nearest_fac else None,
+                    'facilityLocation': nearest_fac.location if nearest_fac else None,
+                    'region': det.location,
                     'persistenceDays': det.persistence_days,
                     'isPersistent': det.is_persistent,
                     'landCoverClass': det.land_cover_class

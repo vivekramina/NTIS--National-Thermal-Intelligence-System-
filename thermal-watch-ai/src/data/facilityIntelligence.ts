@@ -291,6 +291,260 @@ export const FACILITY_INTELLIGENCE_REGISTRY: Record<string, FacilityIntelligence
     safetyBufferMeters: 1000,
     riskClassification: 'CRITICAL MARINE PETROLEUM BUFFER (Offshore Hydrocarbon Hazard Zone)',
   },
+
+  'OSM-FAC-RELIANCE-JAMNAGAR': {
+    name: 'Reliance Jamnagar Petroleum Refinery Complex',
+    sector: 'Petroleum Refining & Petrochemical Megaplex',
+    parentEntity: 'Reliance Industries Limited (RIL)',
+    capacity: '68.2 Million Metric Tonnes Per Annum (World’s Largest Refinery)',
+    location: 'Motikhavdi, Jamnagar, Gujarat 361140',
+    whatItDoes:
+      'The world’s largest and most complex petroleum refining hub. Processes crude oil grades into transportation fuels, polymers, and petrochemical building blocks with over 1.24 million barrels/day refining capacity.',
+    operations: [
+      'Atmospheric & Vacuum Distillation Units (AVU)',
+      'Fluidized Catalytic Cracking (FCC) and Resid Fluidized Catalytic Cracking (RFCC)',
+      'Delayed Coking Units (DCU) and Gasification of Petroleum Coke',
+      'Continuous Hydrocracking and Catalytic Reforming',
+      'High-Capacity Elevated and Ground Flare Combustion Stacks',
+    ],
+    products: [
+      'Ultra-Low Sulfur BS-VI Diesel & Jet Fuel (ATF)',
+      'Euro-VI Compliant Motor Gasoline (Petrol)',
+      'Polypropylene, Polyethylene, and Paraxylene',
+      'Liquefied Petroleum Gas (LPG) & Naphtha',
+    ],
+    heatProduced: {
+      baselineFRP: '65.0 – 140.0 MW (World-scale thermal signature)',
+      typicalTemperature: '700°C – 950°C at elevated flare stacks; 500°C+ cracker furnaces',
+      heatSources: [
+        'Continuous thermal flaring of unrecovered light ends and off-gases',
+        'Petcoke gasifiers and high-pressure steam utility boilers',
+        'Direct-fired refinery heaters and catalyst regenerator flue exhausts',
+      ],
+      heatDescription:
+        'One of the largest persistent industrial thermal anomaly signatures in Asia. NASA VIIRS satellites consistently record high Fire Radiative Power (FRP) over Jamnagar flare towers.',
+      coolingMechanism: 'Extensive seawater cooling channels and high-volume cooling towers',
+      environmentalImpact: 'Continuous flare gas recovery systems; ambient air and VOC perimeter monitoring.',
+    },
+    safetyBufferMeters: 1500,
+    riskClassification: 'CRITICAL PETROLEUM MEGAPLEX BUFFER (Explosive Vapor & Flare Hazard Zone)',
+  },
+
+  'OSM-FAC-DAHEJ-PCPIR': {
+    name: 'Dahej PCPIR Petrochemical & Flare SEZ',
+    sector: 'Chemicals, Petrochemicals & Hydrocarbon Cracking',
+    parentEntity: 'ONGC Petro additions Limited (OPaL) & Gujarat Chemical Port',
+    capacity: '1.4 Million Metric Tonnes Per Annum Ethylene / Dual Feed Cracker',
+    location: 'Dahej Industrial Area, Vagra, Bharuch, Gujarat 392130',
+    whatItDoes:
+      'Premier Petroleum, Chemicals and Petrochemical Investment Region (PCPIR). Features mega dual-feed steam crackers, polyolefin plants, chlor-alkali production, and LNG regasification terminals.',
+    operations: [
+      'Dual Feed Steam Cracker Unit (DFCU) cracking ethane, propane, and naphtha',
+      'Polyethylene (HDPE/LLDPE) and Polypropylene manufacturing lines',
+      'Pyrolysis Gasoline Hydrogenation and Benzene Extraction',
+      'Emergency process flare systems and thermal oxidizers',
+    ],
+    products: [
+      'High-Density Polyethylene (HDPE) & Linear Low-Density Polyethylene (LLDPE)',
+      'Industrial Polymers, Benzene, and Butadiene',
+      'Caustic Soda, Chlorine, and Chlorinated Organics',
+    ],
+    heatProduced: {
+      baselineFRP: '35.0 – 85.0 MW',
+      typicalTemperature: '800°C – 850°C steam cracking pyrolysis furnaces; 750°C flare tips',
+      heatSources: [
+        'High-temperature steam cracking pyrolysis furnaces',
+        'Process off-gas emergency and operational flare stacks',
+        'High-pressure steam boiler discharges and cracking quench units',
+      ],
+      heatDescription:
+        'Continuous thermal infrared emissions from steam cracking furnaces and flare towers along the Gulf of Khambhat coastline.',
+      coolingMechanism: 'Coastal cooling water systems and wet cooling towers',
+      environmentalImpact: 'Continuous VOC and sulfur perimeter monitoring with thermal dispersion buffers.',
+    },
+    safetyBufferMeters: 800,
+    riskClassification: 'CRITICAL CHEMICAL SEZ BUFFER (High-Temperature Hydrocarbon Cracking Zone)',
+  },
+
+  'OSM-FAC-HAZIRA-SURAT': {
+    name: 'Hazira LNG & Heavy Industrial Manufacturing Complex',
+    sector: 'Steel Smelting, Petrochemicals & LNG Infrastructure',
+    parentEntity: 'ArcelorMittal Nippon Steel (AM/NS) & Reliance Hazira',
+    capacity: '9.6 Million Tonnes Steel & Mega Petrochemical Feedstock Units',
+    location: 'Hazira Industrial Area, Surat, Gujarat 394510',
+    whatItDoes:
+      'Integrated industrial coastal hub housing giant steel manufacturing (AM/NS India), Reliance petrochemical cracking plants, LNG import terminals, and heavy engineering facilities.',
+    operations: [
+      'Corex and Blast Furnace Ironmaking & Direct Reduced Iron (DRI) kilns',
+      'Basic Oxygen Furnaces (BOF) and Continuous Slab Casting',
+      'Purified Terephthalic Acid (PTA) and Polyester Synthesis',
+      'LNG cryogenic regasification and boil-off gas combustion',
+    ],
+    products: [
+      'Hot-Rolled & Cold-Rolled Steel Coils and Structural Plates',
+      'Polyester Staple Fiber & Polyester Filament Yarn',
+      'Regasified Liquefied Natural Gas (RLNG) for national pipeline grid',
+    ],
+    heatProduced: {
+      baselineFRP: '45.0 – 95.0 MW',
+      typicalTemperature: '1,400°C molten steel; 700°C petrochemical cracking heaters',
+      heatSources: [
+        'Blast furnace molten pig iron tapping and slag flushes',
+        'Direct Reduced Iron rotary kilns operating at high thermal output',
+        'Petrochemical cracker furnace and flare emissions',
+      ],
+      heatDescription:
+        'Intense combined metallurgical and petrochemical thermal signature. Satellite infrared sensors record high radiance over Hazira industrial waterfront.',
+      coolingMechanism: 'Tapi estuary industrial cooling intake and heavy-duty cooling towers',
+      environmentalImpact: 'Comprehensive dust collection, slag recycling, and continuous emission monitoring.',
+    },
+    safetyBufferMeters: 1000,
+    riskClassification: 'CRITICAL METALLURGICAL & CHEMICAL BUFFER (High-Heat Smelting & Flare Zone)',
+  },
+
+  'OSM-FAC-JINDAL-ANGUL': {
+    name: 'JSPL Angul Integrated Steel & Blast Furnace Plant',
+    sector: 'Integrated Iron & Steel Metallurgy',
+    parentEntity: 'Jindal Steel and Power Limited (JSPL)',
+    capacity: '6.0 Million Tonnes Per Annum Steel (Expanding to 12 MTPA)',
+    location: 'Chhendipada Rd, Angul, Odisha 759145',
+    whatItDoes:
+      'Mega integrated steel plant utilizing coal gasification and blast furnace routes to convert raw iron ore into high-grade infrastructure steel, plates, and rails.',
+    operations: [
+      '4,554 cubic-meter Blast Furnace operating at extreme temperatures',
+      'Direct Reduced Iron (DRI) coal gasification steelmaking',
+      'Basic Oxygen Furnace (BOF) & Electric Arc Furnaces (EAF)',
+      'Plate Mill and Rail Mill hot rolling operations',
+      'Captive coal-based thermal power generation',
+    ],
+    products: [
+      'Wide Steel Plates for shipbuilding and defense',
+      'Long Rails and Heavy Structural Beams',
+      'Hot Metal, Steel Billets, and Wire Rods',
+    ],
+    heatProduced: {
+      baselineFRP: '50.0 – 110.0 MW',
+      typicalTemperature: '1,450°C – 1,600°C molten iron and steel tapping; 1,100°C reheat furnaces',
+      heatSources: [
+        'Blast furnace molten metal tapping and slag runner troughs',
+        'Coal gasification synthesis reactors and gas flaring',
+        'Slab reheat rolling furnaces and captive boiler exhausts',
+      ],
+      heatDescription:
+        'Massive metallurgical thermal hotspot in central Odisha. Persistent high-energy thermal signature detectable throughout the year on VIIRS night-pass bands.',
+      coolingMechanism: 'Samal Barrage industrial cooling water intake and multi-cell cooling towers',
+      environmentalImpact: 'Coke dry quenching and waste heat power generation to minimize open thermal loss.',
+    },
+    safetyBufferMeters: 1000,
+    riskClassification: 'CRITICAL METALLURGICAL BUFFER (Extreme Blast Furnace Thermal Zone)',
+  },
+
+  'OSM-FAC-SAIL-BHILAI': {
+    name: 'SAIL Bhilai Integrated Steel Plant',
+    sector: 'Primary Steel Manufacturing & Rail Metallurgy',
+    parentEntity: 'Steel Authority of India Limited (Maharatna PSU)',
+    capacity: '7.0 Million Tonnes of Crude Steel Per Annum',
+    location: 'Bhilai, Durg, Chhattisgarh 490001',
+    whatItDoes:
+      'India’s primary manufacturer of world-class rails for Indian Railways and heavy steel plates. Operates massive blast furnaces, sinter plants, and hot rolling mills.',
+    operations: [
+      'Blast Furnace No. 8 (Mahamaya) and coke oven batteries',
+      'Basic Oxygen Process shop with secondary refining units',
+      'Universal Rail Mill rolling 130-meter long world-record rail sections',
+      'Continuous casting machines and captive thermal generation',
+    ],
+    products: [
+      'Prime Rail Steel (R260 / 880 grade) for Indian Railways',
+      'Heavy Steel Plates, Wire Rods, and Structural Channels',
+    ],
+    heatProduced: {
+      baselineFRP: '40.0 – 90.0 MW',
+      typicalTemperature: '1,500°C liquid iron; 1,200°C rail billet reheating',
+      heatSources: [
+        'Blast furnace hearth molten metal discharge and slag skimming',
+        'Coke oven byproduct gas flaring and charging emissions',
+        'Continuous bloom and billet casting thermal radiation',
+      ],
+      heatDescription:
+        'Substantial, persistent industrial thermal anomaly in the Durg-Bhilai basin. Distinct infrared radiation peaks observed during molten steel tapping.',
+      coolingMechanism: 'Maroda water reservoirs and recirculated closed-loop cooling towers',
+      environmentalImpact: 'Advanced electrostatic precipitators and blast furnace gas recovery systems.',
+    },
+    safetyBufferMeters: 800,
+    riskClassification: 'HIGH METALLURGICAL BUFFER (Primary Steelmaking & Blast Furnace Zone)',
+  },
+
+  'OSM-FAC-TATA-JAMSHEDPUR': {
+    name: 'Tata Steel Jamshedpur Works',
+    sector: 'Integrated Iron, Steel & Automotive Grade Metallurgy',
+    parentEntity: 'Tata Steel Limited',
+    capacity: '11.0 Million Tonnes Per Annum Crude Steel',
+    location: 'Bistupur, Jamshedpur, Jharkhand 831001',
+    whatItDoes:
+      'Historic flagship integrated steelworks producing automotive steel, tinplate, and engineering bars. Features high-efficiency blast furnaces (I & K Blast Furnaces) and advanced LD shops.',
+    operations: [
+      'High-productivity blast furnaces with pulverized coal injection',
+      'LD Converter Steelmaking and Argon Oxygen Decarburization',
+      'Hot Strip Mill and Cold Rolling Complex',
+      'Coke oven batteries with stamp charging technology',
+    ],
+    products: [
+      'High-Strength Automotive Steels & Galvanized Coils',
+      'Tinplate for food packaging and commercial containers',
+      'Precision Bars and Construction Rebars (Tata Tiscon)',
+    ],
+    heatProduced: {
+      baselineFRP: '45.0 – 98.0 MW',
+      typicalTemperature: '1,550°C liquid steel; 1,150°C hot strip slab reheating',
+      heatSources: [
+        'Blast furnace molten iron tapping operations',
+        'LD shop molten steel processing and converter gas combustion',
+        'Reheat furnaces and continuous casting radiant heat',
+      ],
+      heatDescription:
+        'Major persistent urban-adjacent metallurgical thermal anomaly in the Chota Nagpur plateau. Monitored continuously by satellite infrared payloads.',
+      coolingMechanism: 'Dimna Lake / Subarnarekha river cooling water circulation loops',
+      environmentalImpact: 'Zero effluent discharge; automated LD gas holders capturing process heat.',
+    },
+    safetyBufferMeters: 800,
+    riskClassification: 'HIGH METALLURGICAL BUFFER (Automotive Steelmaking & Blast Furnace Zone)',
+  },
+
+  'OSM-FAC-IOCL-PANIPAT': {
+    name: 'IOCL Panipat Refinery & Petrochemical Complex',
+    sector: 'Petroleum Refining & Aromatic Petrochemicals',
+    parentEntity: 'Indian Oil Corporation Limited (Maharatna PSU)',
+    capacity: '15.0 Million Metric Tonnes Per Annum (Expanding to 25 MTPA)',
+    location: 'Baholi, Panipat, Haryana 132140',
+    whatItDoes:
+      'Largest integrated public-sector petroleum refinery and petrochemical hub in Northern India. Delivers transportation fuels, aviation turbine fuel, and polymers to North India.',
+    operations: [
+      'Atmospheric & Vacuum Distillation and Indmax FCC Technology',
+      'Naphtha Cracker Unit (NCU) and Purified Terephthalic Acid (PTA) plant',
+      'Hydrocracker and Diesel Hydrotreating units producing BS-VI fuels',
+      'Elevated multi-point flare stacks and sulfur recovery units',
+    ],
+    products: [
+      'BS-VI High-Speed Diesel, Premium Petrol, and Aviation Turbine Fuel',
+      'Polypropylene, Polyethylene, and Paraxylene',
+      'Linear Alkyl Benzene (LAB) for detergent manufacturing',
+    ],
+    heatProduced: {
+      baselineFRP: '40.0 – 82.0 MW',
+      typicalTemperature: '650°C – 780°C flare tips; 500°C cracker reboilers',
+      heatSources: [
+        'Naphtha cracker and refinery emergency flare stacks',
+        'Direct-fired crude furnace exhausts and utility steam boilers',
+        'Indmax catalytic cracking regenerator flue heat discharge',
+      ],
+      heatDescription:
+        'Dominant industrial thermal hotspot in the Haryana-NCR corridor. Radiometric signatures contrast distinctly against surrounding agricultural plains.',
+      coolingMechanism: 'Recirculated canal water cooling towers and air-cooled heat exchangers',
+      environmentalImpact: 'State-of-the-art flare gas recovery and continuous VOC emission monitoring.',
+    },
+    safetyBufferMeters: 750,
+    riskClassification: 'CRITICAL REFINERY BUFFER (High Hydrocarbon & Flare Stack Zone)',
+  },
 }
 
 /**
@@ -306,36 +560,53 @@ export function getFacilityIntelligence(
   }
 
   const query = String(facilityIdOrName || '').toLowerCase()
+  const locQuery = String(detectionLocation || '').toLowerCase()
+  const fullText = `${query} ${locQuery}`
 
   // Match by key or substring
   for (const [key, info] of Object.entries(FACILITY_INTELLIGENCE_REGISTRY)) {
-    if (
-      facilityIdOrName === key ||
-      query.includes('bharat') ||
-      query.includes('bpcl')
-    ) {
+    if (facilityIdOrName === key) return info
+
+    if (fullText.includes('jamnagar') || fullText.includes('reliance') || fullText.includes('motikhavdi')) {
+      if (key === 'OSM-FAC-RELIANCE-JAMNAGAR') return info
+    }
+    if (fullText.includes('dahej') || fullText.includes('pcpir') || fullText.includes('vagra')) {
+      if (key === 'OSM-FAC-DAHEJ-PCPIR') return info
+    }
+    if (fullText.includes('hazira') || fullText.includes('surat')) {
+      if (key === 'OSM-FAC-HAZIRA-SURAT') return info
+    }
+    if (fullText.includes('angul') || fullText.includes('jspl') || fullText.includes('jindal steel')) {
+      if (key === 'OSM-FAC-JINDAL-ANGUL') return info
+    }
+    if (fullText.includes('bhilai') || fullText.includes('durg') || fullText.includes('sail bhilai')) {
+      if (key === 'OSM-FAC-SAIL-BHILAI') return info
+    }
+    if (fullText.includes('jamshedpur') || fullText.includes('tata steel') || fullText.includes('bistupur')) {
+      if (key === 'OSM-FAC-TATA-JAMSHEDPUR') return info
+    }
+    if (fullText.includes('panipat') || fullText.includes('iocl panipat') || fullText.includes('baholi')) {
+      if (key === 'OSM-FAC-IOCL-PANIPAT') return info
+    }
+    if (fullText.includes('bharat') || fullText.includes('bpcl') || fullText.includes('mumbai refinery')) {
       if (key === 'OSM-FAC-BPCL-MUMBAI') return info
     }
-    if (
-      query.includes('hindustan') ||
-      query.includes('hpcl') ||
-      query.includes('mahul refinery')
-    ) {
+    if (fullText.includes('hindustan') || fullText.includes('hpcl') || fullText.includes('mahul refinery')) {
       if (key === 'OSM-FAC-HPCL-MAHUL') return info
     }
-    if (query.includes('tata') || query.includes('trombay thermal')) {
+    if (fullText.includes('tata') || fullText.includes('trombay thermal')) {
       if (key === 'OSM-FAC-TATA-TROMBAY') return info
     }
-    if (query.includes('rcf') || query.includes('rashtriya') || query.includes('fertilizer')) {
+    if (fullText.includes('rcf') || fullText.includes('rashtriya') || fullText.includes('fertilizer')) {
       if (key === 'OSM-FAC-RCF-CHEMBUR') return info
     }
-    if (query.includes('turbhe')) {
+    if (fullText.includes('turbhe')) {
       if (key === 'OSM-FAC-MIDC-TURBHE') return info
     }
-    if (query.includes('kopar') || query.includes('ttc')) {
+    if (fullText.includes('kopar') || fullText.includes('ttc')) {
       if (key === 'OSM-FAC-MIDC-KOPAR') return info
     }
-    if (query.includes('jawahar') || query.includes('butcher') || query.includes('terminal')) {
+    if (fullText.includes('jawahar') || fullText.includes('butcher') || fullText.includes('terminal')) {
       if (key === 'OSM-FAC-JAWAHAR-ISLAND') return info
     }
   }
@@ -345,14 +616,52 @@ export function getFacilityIntelligence(
 
 function generateDynamicFallback(name?: string | null, frp?: number): FacilityIntelligence {
   const heatMW = frp || 35
-  const safeName = name || 'Industrial Manufacturing Facility'
+  const safeName = name || 'Regional Geospatial Anomaly Sector'
+  const isAgri = safeName.toLowerCase().includes('punjab') ||
+                 safeName.toLowerCase().includes('haryana') ||
+                 safeName.toLowerCase().includes('agricultural') ||
+                 safeName.toLowerCase().includes('basin')
+
+  if (isAgri) {
+    return {
+      name: safeName,
+      sector: 'Agricultural Biomass & Open Thermal Combustion',
+      parentEntity: 'Regional Agricultural & Open Land Corridor',
+      capacity: 'Seasonal Harvesting & Farm Stubble Clearance Zone',
+      location: 'Northern / Central Agricultural Plains of India',
+      whatItDoes:
+        'Seasonal agricultural cultivation belt experiencing post-harvest open crop residue clearing (paddy / wheat stubble burning) or localized rural biomass combustion.',
+      operations: [
+        'Open-field post-harvest stubble clearing and burning',
+        'Agricultural land preparation and organic residue combustion',
+        'Rural biomass and seasonal vegetative clearance',
+      ],
+      products: [
+        'Harvested Paddy / Wheat Agricultural Produce',
+        'Soil preparation for upcoming rabi/kharif sowing cycles',
+      ],
+      heatProduced: {
+        baselineFRP: `${(heatMW * 0.8).toFixed(1)} – ${(heatMW * 1.2).toFixed(1)} MW`,
+        typicalTemperature: '350°C – 500°C open vegetative combustion',
+        heatSources: [
+          'Direct open-air flaming and smoldering agricultural crop stubble',
+          'Surface vegetative combustion across harvested crop fields',
+        ],
+        heatDescription: `Satellite sensor detected open thermal radiance of ${heatMW.toFixed(1)} MW FRP. Radiometric characteristics match active biomass combustion with rapid smoke and aerosol plume dispersion.`,
+        coolingMechanism: 'Natural open-atmosphere ambient air and wind dissipation',
+        environmentalImpact: 'Elevated seasonal PM2.5, PM10, and carbon monoxide atmospheric plume dispersion.',
+      },
+      safetyBufferMeters: 300,
+      riskClassification: 'SEASONAL AGRICULTURAL EMISSION ZONE',
+    }
+  }
 
   return {
     name: safeName,
     sector: 'Heavy Industrial Processing & Manufacturing',
     parentEntity: 'Registered Industrial Operator (OSM Indexed)',
     capacity: 'Regional Manufacturing & Continuous Industrial Operations',
-    location: 'Mumbai–Thane–Navi Mumbai Industrial Belt',
+    location: 'Indian Industrial & Manufacturing Corridor',
     whatItDoes:
       'Continuous industrial processing facility conducting high-temperature manufacturing, chemical reactions, material synthesis, and process exhaust management.',
     operations: [

@@ -367,17 +367,17 @@ class FirmsService:
             logger.info('NASA FIRMS MAP_KEY not configured in backend/.env. Using validated fallback telemetry.')
             return DEMO_FIRMS_RECORDS
 
-        # Default bounding box for India (approx 68.0, 6.0, 97.5, 37.5) or regional box
-        bounding_box = bbox or '72.7,18.8,73.2,19.3'  # Mumbai / Industrial Belt
+        # Default bounding box for India (approx 68.0, 6.0, 97.5, 37.5)
+        bounding_box = bbox or '68.0,6.0,97.5,37.5'  # All-India Sovereign Territorial Bounding Box
         url = f'{cls.BASE_URL}/area/csv/{map_key}/{source}/{bounding_box}/{days}'
 
         try:
-            logger.info(f'Requesting NASA FIRMS telemetry from official endpoint: {url.replace(map_key, "***")}')
-            with httpx.Client(timeout=15.0) as client:
+            logger.info(f'Requesting NASA FIRMS telemetry from official endpoint for India: {url.replace(map_key, "***")}')
+            with httpx.Client(timeout=25.0) as client:
                 resp = client.get(url)
                 if resp.status_code == 200:
                     records = cls.parse_firms_csv(resp.text, source=source)
-                    logger.info(f'Successfully parsed {len(records)} thermal anomalies from NASA FIRMS.')
+                    logger.info(f'Successfully parsed {len(records)} thermal anomalies from NASA FIRMS across India.')
                     return records
                 elif resp.status_code == 403 or 'Invalid MAP_KEY' in resp.text:
                     logger.error('NASA FIRMS reported Invalid MAP_KEY. Falling back to local telemetry.')
@@ -388,6 +388,37 @@ class FirmsService:
         except Exception as e:
             logger.error(f'NASA FIRMS request failed: {e}. Utilizing fallback telemetry.')
             return DEMO_FIRMS_RECORDS
+
+    @classmethod
+    def get_indian_region_label(cls, lat: float, lon: float) -> str:
+        """
+        Generate human-readable Indian geographical corridor tag from coordinates.
+        """
+        if 29.5 <= lat <= 33.0 and 74.0 <= lon <= 77.5:
+            return f'Punjab-Haryana Agricultural Belt ({lat:.3f}°N, {lon:.3f}°E)'
+        if 28.0 <= lat <= 29.5 and 76.5 <= lon <= 78.5:
+            return f'Delhi NCR Industrial & Logistics Sector ({lat:.3f}°N, {lon:.3f}°E)'
+        if 20.5 <= lat <= 24.5 and 68.5 <= lon <= 74.0:
+            if lon <= 71.0:
+                return f'Jamnagar-Saurashtra Petroleum Belt, Gujarat ({lat:.3f}°N, {lon:.3f}°E)'
+            return f'Dahej-Bharuch-Ahmedabad Industrial Corridor, Gujarat ({lat:.3f}°N, {lon:.3f}°E)'
+        if 18.5 <= lat <= 20.5 and 72.5 <= lon <= 74.5:
+            return f'Mumbai-Thane-Pune Petrochemical Belt, Maharashtra ({lat:.3f}°N, {lon:.3f}°E)'
+        if 19.5 <= lat <= 22.5 and 83.5 <= lon <= 87.5:
+            return f'Angul-Jharsuguda Steel & Power Corridor, Odisha ({lat:.3f}°N, {lon:.3f}°E)'
+        if 20.0 <= lat <= 23.5 and 80.5 <= lon <= 83.5:
+            return f'Bhilai-Korba Heavy Industrial Basin, Chhattisgarh ({lat:.3f}°N, {lon:.3f}°E)'
+        if 22.0 <= lat <= 24.5 and 84.5 <= lon <= 87.5:
+            return f'Jamshedpur-Dhanbad Industrial Corridor, Jharkhand ({lat:.3f}°N, {lon:.3f}°E)'
+        if 12.0 <= lat <= 13.8 and 79.5 <= lon <= 80.5:
+            return f'Chennai-Ennore Petrochemical & Port Zone, Tamil Nadu ({lat:.3f}°N, {lon:.3f}°E)'
+        if 9.5 <= lat <= 11.5 and 76.0 <= lon <= 77.5:
+            return f'Kochi-Ernakulam Industrial Belt, Kerala ({lat:.3f}°N, {lon:.3f}°E)'
+        if 16.5 <= lat <= 18.5 and 82.0 <= lon <= 84.0:
+            return f'Visakhapatnam Petroleum & Steel SEZ, Andhra Pradesh ({lat:.3f}°N, {lon:.3f}°E)'
+        if 18.0 <= lat <= 19.5 and 78.5 <= lon <= 80.5:
+            return f'Ramagundam-Godavari Power Basin, Telangana ({lat:.3f}°N, {lon:.3f}°E)'
+        return f'India Geospatial Sector ({lat:.3f}°N, {lon:.3f}°E)'
 
     @classmethod
     def parse_firms_csv(cls, csv_text: str, source: str) -> List[Dict[str, Any]]:
@@ -403,15 +434,22 @@ class FirmsService:
             try:
                 lat = float(row.get('latitude', 0.0))
                 lon = float(row.get('longitude', 0.0))
+
+                # Strictly restrict to sovereign Indian territorial bounds
+                if not (6.0 <= lat <= 37.5 and 68.0 <= lon <= 97.5):
+                    continue
+
                 acq_date = row.get('acq_date', datetime.now(timezone.utc).strftime('%Y-%m-%d'))
-                acq_time = row.get('acq_time', '0000')
+                raw_time = str(row.get('acq_time', '0000')).strip()
+                clean_time = f'{int(raw_time):04d}' if raw_time.isdigit() else '1200'
+                acq_time_fmt = f'{clean_time[:2]}:{clean_time[2:]}'
 
                 # Determine satellite and instrument
                 sat = row.get('satellite', 'VIIRS')
                 inst = 'VIIRS' if 'VIIRS' in source or 'VIIRS' in sat else 'MODIS'
 
                 # Confidence parsing (VIIRS uses 'l', 'n', 'h' or 0-100; MODIS uses 0-100)
-                conf_val = row.get('confidence', '80')
+                conf_val = str(row.get('confidence', '80')).strip().lower()
                 if conf_val == 'l':
                     confidence = 35.0
                 elif conf_val == 'n':
@@ -428,15 +466,15 @@ class FirmsService:
                 brightness = float(row.get('bright_ti4', row.get('brightness', 320.0)) or 320.0)
                 bright_t31 = float(row.get('bright_ti5', row.get('bright_t31', 290.0)) or 290.0)
 
-                det_id = f'FIRMS-{sat}-{acq_date.replace("-", "")}-{acq_time}-{lat:.4f}-{lon:.4f}'
+                det_id = f'FIRMS-{sat}-{acq_date.replace("-", "")}-{clean_time}-{lat:.4f}-{lon:.4f}'
 
                 records.append({
                     'id': det_id,
                     'latitude': lat,
                     'longitude': lon,
-                    'location': f'Geospatial Sector ({lat:.3f}N, {lon:.3f}E)',
+                    'location': cls.get_indian_region_label(lat, lon),
                     'acquisition_date': acq_date,
-                    'acquisition_time': f'{acq_time[:2]}:{acq_time[2:]}' if len(acq_time) >= 4 else acq_time,
+                    'acquisition_time': acq_time_fmt,
                     'satellite': sat,
                     'instrument': inst,
                     'confidence': confidence,

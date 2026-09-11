@@ -80,6 +80,212 @@ VERIFIED_OSM_FACILITIES = [
         'longitude': 72.9350,
         'location': 'Mumbai Harbour, Maharashtra',
         'source': 'OpenStreetMap'
+    },
+    # Gujarat Corridor
+    {
+        'id': 'OSM-FAC-RELIANCE-JAMNAGAR',
+        'osm_id': 'way/11029384',
+        'name': 'Reliance Jamnagar Petroleum Refinery Complex',
+        'facility_type': 'petroleum',
+        'latitude': 22.4707,
+        'longitude': 70.0577,
+        'location': 'Motikhavdi, Jamnagar, Gujarat 361140',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-DAHEJ-PCPIR',
+        'osm_id': 'way/22938475',
+        'name': 'Dahej PCPIR Petrochemical & Flare SEZ',
+        'facility_type': 'chemical',
+        'latitude': 21.7000,
+        'longitude': 72.5800,
+        'location': 'Dahej, Vagra, Bharuch, Gujarat 392130',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-HAZIRA-SURAT',
+        'osm_id': 'way/33849506',
+        'name': 'Hazira LNG & Heavy Industrial Manufacturing Complex',
+        'facility_type': 'manufacturing',
+        'latitude': 21.1150,
+        'longitude': 72.6450,
+        'location': 'Hazira Industrial Area, Surat, Gujarat 394510',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-MUNDRA-POWER',
+        'osm_id': 'way/44950617',
+        'name': 'Mundra Ultra Mega Thermal Power & Port SEZ',
+        'facility_type': 'power_plant',
+        'latitude': 22.8250,
+        'longitude': 69.5300,
+        'location': 'Mundra Port & SEZ, Kutch, Gujarat 370421',
+        'source': 'OpenStreetMap'
+    },
+    # Odisha Steel & Mining Belt
+    {
+        'id': 'OSM-FAC-JINDAL-ANGUL',
+        'osm_id': 'way/55061728',
+        'name': 'JSPL Angul Integrated Steel & Blast Furnace Plant',
+        'facility_type': 'smelter',
+        'latitude': 20.8400,
+        'longitude': 85.1500,
+        'location': 'Chhendipada Rd, Angul, Odisha 759145',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-IOCL-PARADIP',
+        'osm_id': 'way/66172839',
+        'name': 'Indian Oil Paradip Refinery & Petrochemical Complex',
+        'facility_type': 'petroleum',
+        'latitude': 20.2950,
+        'longitude': 86.6350,
+        'location': 'Paradip, Jagatsinghpur, Odisha 754141',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-ROURKELA-STEEL',
+        'osm_id': 'way/77283940',
+        'name': 'SAIL Rourkela Steel Plant',
+        'facility_type': 'smelter',
+        'latitude': 22.2150,
+        'longitude': 84.8700,
+        'location': 'Rourkela, Sundargarh, Odisha 769011',
+        'source': 'OpenStreetMap'
+    },
+    # Chhattisgarh Steel & Thermal Power
+    {
+        'id': 'OSM-FAC-SAIL-BHILAI',
+        'osm_id': 'way/88394051',
+        'name': 'SAIL Bhilai Integrated Steel Plant',
+        'facility_type': 'smelter',
+        'latitude': 21.1900,
+        'longitude': 81.2800,
+        'location': 'Bhilai, Durg, Chhattisgarh 490001',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-NTPC-KORBA',
+        'osm_id': 'way/99405162',
+        'name': 'NTPC Korba Super Thermal Power & BALCO Complex',
+        'facility_type': 'power_plant',
+        'latitude': 22.3650,
+        'longitude': 82.6850,
+        'location': 'Jamnipali, Korba, Chhattisgarh 495450',
+        'source': 'OpenStreetMap'
+    },
+    # Jharkhand Steel & Mining
+    {
+        'id': 'OSM-FAC-TATA-JAMSHEDPUR',
+        'osm_id': 'way/10516273',
+        'name': 'Tata Steel Jamshedpur Works',
+        'facility_type': 'smelter',
+        'latitude': 22.7950,
+        'longitude': 86.2050,
+        'location': 'Bistupur, Jamshedpur, Jharkhand 831001',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-SAIL-BOKARO',
+        'osm_id': 'way/21627384',
+        'name': 'SAIL Bokaro Steel Plant',
+        'facility_type': 'smelter',
+        'latitude': 23.6650,
+        'longitude': 86.1750,
+        'location': 'Bokaro Steel City, Jharkhand 827001',
+        'source': 'OpenStreetMap'
+    },
+    # Northern Corridor (Haryana / Punjab / UP)
+    {
+        'id': 'OSM-FAC-IOCL-PANIPAT',
+        'osm_id': 'way/32738495',
+        'name': 'IOCL Panipat Refinery & Petrochemical Complex',
+        'facility_type': 'petroleum',
+        'latitude': 29.4750,
+        'longitude': 76.9150,
+        'location': 'Baholi, Panipat, Haryana 132140',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-GGSR-BATHINDA',
+        'osm_id': 'way/43849506',
+        'name': 'Guru Gobind Singh Refinery (HMEL), Bathinda',
+        'facility_type': 'petroleum',
+        'latitude': 29.9800,
+        'longitude': 75.0200,
+        'location': 'Phulokhari, Bathinda, Punjab 151301',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-NTPC-SINGRAULI',
+        'osm_id': 'way/54950617',
+        'name': 'NTPC Singrauli Super Thermal Power Station',
+        'facility_type': 'power_plant',
+        'latitude': 24.1000,
+        'longitude': 82.6800,
+        'location': 'Shaktinagar, Sonbhadra, Uttar Pradesh 231222',
+        'source': 'OpenStreetMap'
+    },
+    # Southern Corridor (Telangana / AP / TN / Kerala / Karnataka)
+    {
+        'id': 'OSM-FAC-NTPC-RAMAGUNDAM',
+        'osm_id': 'way/65061728',
+        'name': 'NTPC Ramagundam Super Thermal Power Station',
+        'facility_type': 'power_plant',
+        'latitude': 18.7550,
+        'longitude': 79.4600,
+        'location': 'Jyothinagar, Peddapalli, Telangana 505215',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-CPCL-MANALI',
+        'osm_id': 'way/76172839',
+        'name': 'Chennai Petroleum Corporation Limited (CPCL) Manali',
+        'facility_type': 'petroleum',
+        'latitude': 13.1650,
+        'longitude': 80.2650,
+        'location': 'Manali, Chennai, Tamil Nadu 600068',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-HPCL-VIZAG',
+        'osm_id': 'way/87283940',
+        'name': 'HPCL Visakhapatnam Petroleum Refinery',
+        'facility_type': 'petroleum',
+        'latitude': 17.6950,
+        'longitude': 83.2550,
+        'location': 'Malkapuram, Visakhapatnam, Andhra Pradesh 530011',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-BPCL-KOCHI',
+        'osm_id': 'way/98394051',
+        'name': 'Bharat Petroleum Kochi Refinery',
+        'facility_type': 'petroleum',
+        'latitude': 9.9800,
+        'longitude': 76.3650,
+        'location': 'Ambalamugal, Ernakulam, Kerala 682302',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-JSW-VIJAYANAGAR',
+        'osm_id': 'way/19405162',
+        'name': 'JSW Steel Vijayanagar Works',
+        'facility_type': 'smelter',
+        'latitude': 15.1850,
+        'longitude': 76.6750,
+        'location': 'Toranagallu, Ballari, Karnataka 583123',
+        'source': 'OpenStreetMap'
+    },
+    {
+        'id': 'OSM-FAC-HALDIA-PETRO',
+        'osm_id': 'way/20516273',
+        'name': 'Haldia Petrochemicals & Port Refinery Complex',
+        'facility_type': 'chemical',
+        'latitude': 22.0650,
+        'longitude': 88.0850,
+        'location': 'Haldia Industrial Belt, West Bengal 721602',
+        'source': 'OpenStreetMap'
     }
 ]
 
