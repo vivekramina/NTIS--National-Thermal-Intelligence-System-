@@ -50,25 +50,24 @@ The project has two distinct components:
 
 ---
 
-### Step 2: Deploy the Frontend on Vercel (Free Static Hosting)
+### Step 2: Deploy the Frontend on Vercel (Zero-Config 1-Click Deployment)
 
-1. Go to [https://vercel.com](https://vercel.com) and log in with GitHub.
+The repository is now pre-configured for **Zero-Config Vercel Hosting**. You do not need to manually configure build commands or environment variables — everything connects automatically:
+
+1. Go to [https://vercel.com](https://vercel.com) and log in with your GitHub account.
 2. Click **Add New...** ➔ **Project**.
 3. Import your GitHub repository: `vivekramina/NTIS--National-Thermal-Intelligence-System-`.
-4. In the configuration screen:
-   - **Project Name:** `ntis-thermal-watch`
-   - **Framework Preset:** `Vite`
-   - **Root Directory:** Click **Edit** and choose `thermal-watch-ai`.
-   - **Build Command:** `npm run build`
-   - **Output Directory:** `dist`
-5. Expand **Environment Variables** and add:
-   - **Key:** `VITE_API_BASE_URL`
-   - **Value:** `https://your-backend-name.onrender.com/api`  *(use your actual Render backend URL from Step 1)*
-6. Click **Deploy**.
-7. Within 60 seconds, your site will be live at:
+4. Leave all settings at their defaults:
+   - **Framework Preset:** `Vite` (auto-detected)
+   - **Root Directory:** `./` (or `thermal-watch-ai` — both are supported automatically)
+   - **Build & Output Settings:** Auto-configured via `vercel.json`
+   - **API Connection:** Automatically configured to connect to your live Render backend (`https://ntis-backend-ynam.onrender.com/api`)
+5. Click **Deploy**.
+6. Within 60 seconds, your site will be live at:
    ```
    https://ntis-thermal-watch.vercel.app
    ```
+   *(Or your custom Vercel URL)*
 
 ---
 
